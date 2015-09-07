@@ -3,7 +3,7 @@
  */
 
 /**
- * @author Matthijs
+ * @author Matthijs en Daniel
  *
  */
 public class Main {
