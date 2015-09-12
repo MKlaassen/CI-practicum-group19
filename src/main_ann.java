@@ -12,6 +12,7 @@ public class main_ann {
 	    
 		NeuronNetwork n1 = new NeuronNetwork(hiddenlayers_amount, neuronsperlayer, incoming_amount, outgoing_amount);
 		
+		//features.txt must be imported here, this is for testing purposes
 		testinputs[0]=0.57855;
 		testinputs[1]=0.82114;
 		testinputs[2]=1.2148;

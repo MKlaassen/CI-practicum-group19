@@ -57,6 +57,7 @@ public class NeuronNetwork {
 		 
 	//the outputs of the previous layer are the inputs for all the neurons on the next layer
 	 inputs=null;
+	//resize the output-vector array because, output-vector has a static size and the input a variable size dependent on the layer
 	 inputs = arrayresize(outputvector,(layers.get(j).size())); 
 	  
 	  }
