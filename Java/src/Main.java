@@ -1,3 +1,5 @@
+package Java.src;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -22,7 +24,7 @@ public class Main {
 	public static void readFiles(){
 		Scanner sc = null;
 		try {
-			sc = new Scanner(new File("C:\\Users\\Rick\\Documents\\CI-practicum-group19\\Java\\src\\features.txt"));
+			sc = new Scanner(new File("src\\features.txt"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
