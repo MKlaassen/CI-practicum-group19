@@ -7,8 +7,8 @@ import com.sun.deploy.uitoolkit.impl.fx.ui.UITextArea;
  */
 
 /**
- * @author Matthijs
- *
+ * @author Matthijs, Rick, Daniël
+ * date: 11-09-2015
  */
 public class NeuronNetwork {
   

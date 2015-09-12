@@ -3,8 +3,8 @@
  */
 
 /**
- * @author Matthijs
- *
+ * @author Matthijs, Rick, Daniël
+ * date: 11-09-2015
  */
 public class Neuron {
     
@@ -16,7 +16,8 @@ public class Neuron {
      this.amount_inputs = a_inputs;
      weights = new double[amount_inputs+1];
      for(int i = 0 ; i<weights.length; i++) {
-       weights[i] = Math.random();
+     //give weights a random value between -0.5 and 0.5  
+     weights[i] = Math.random()-0.5;
      }
      
    }

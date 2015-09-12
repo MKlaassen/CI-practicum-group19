@@ -5,8 +5,8 @@ import java.util.ArrayList;
  */
 
 /**
- * @author Matthijs
- *
+ * @author Matthijs, Rick, Daniël
+ * date: 11-09-2015
  */
 public class Layer {
     private ArrayList<Neuron> neurons;
