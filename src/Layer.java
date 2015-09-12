@@ -14,7 +14,7 @@ public class Layer {
     public Layer(int number_neurons, int a_inputs){
       neurons = new ArrayList<>();
       
-      for(int i = 0 ; i< (number_neurons-1); i++) {
+      for(int i = 0 ; i< (number_neurons); i++) {
         neurons.add(new Neuron(a_inputs));
       }
     }

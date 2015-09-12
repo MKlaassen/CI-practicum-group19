@@ -25,7 +25,8 @@ public class main_ann {
 		
 		testoutputs = n1.calculate_Outputs(testinputs);
 		
-		System.out.println(testoutputs);
+		for(int i=0;i<testoutputs.length;i++)
+		System.out.println(testoutputs[i]);
 	}
 
 }

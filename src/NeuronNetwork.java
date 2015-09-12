@@ -38,24 +38,43 @@ public class NeuronNetwork {
   }
   
   public double[] calculate_Outputs(double[] inputs)
-  {
-	 double[] outputvector = new double[inputs.length];
+  {	 
+	  double[] outputvector = new double[inputs.length];
 	 
-	 for(int j=0; j<=(hiddenlayers_amount-1)+2;j++)
-	 {
+	  for(int j=0; j<=(hiddenlayers_amount)+1;j++)
+	  {
+		  
 	 //calculate output of layer j
-		 for(int i = 0; i <= (inputs.length-1); i++)
+		 for(int i = 0; i <= (layers.get(j).size()-1); i++)
 		 {
 			 outputvector[i] = layers.get(j).get(i).calculate_Output(inputs);
 		 }
-	 //the outputs of the previous layer are the inputs for all the neurons on the next layer
-	 inputs = outputvector; 
-	 
-	 }
-	 
-	 return outputvector;
-	}
-  
+	//fill non used elements in the array with zeros	 
+		 for(int i = (layers.get(j).size()); i <= outputvector.length-1; i++)
+		 {
+			 outputvector[i] = 0;
+		 }
+		 
+	//the outputs of the previous layer are the inputs for all the neurons on the next layer
+	 inputs=null;
+	 inputs = arrayresize(outputvector,(layers.get(j).size())); 
+	  
+	  }
+	return outputvector;
+
   }
+  
+  private double[] arrayresize(double[] array, int index)
+  {
+	  double[] output = new double[index];
+	  for(int i=0;i<=index-1;i++)
+	  {
+		  output[i]=array[i];
+	  }
+	  return output;
+  }
+  
+ }
+  
   
   
