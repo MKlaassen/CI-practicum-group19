@@ -1,0 +1,8 @@
+Taakverdeling report
+
+-Vragen van report moeten beantwoord worden voor het report-
+2.1 architecture (1-5) 		- 	??
+2.2 Training (6-9) 			-	??
+2.3 Optimization (10-11)	-	??
+2.4 Evaluation (12-14)		-	??
+
