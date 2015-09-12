@@ -37,5 +37,25 @@ public class NeuronNetwork {
     layers.add(outgoinglayer);
   }
   
+  public double[] calculate_Outputs(double[] inputs)
+  {
+	 double[] outputvector = new double[inputs.length];
+	 
+	 for(int j=0; j<=(hiddenlayers_amount-1)+2;j++)
+	 {
+	 //calculate output of layer j
+		 for(int i = 0; i <= (inputs.length-1); i++)
+		 {
+			 outputvector[i] = layers.get(j).get(i).calculate_Output(inputs);
+		 }
+	 //the outputs of the previous layer are the inputs for all the neurons on the next layer
+	 inputs = outputvector; 
+	 
+	 }
+	 
+	 return outputvector;
+	}
   
-}
+  }
+  
+  
