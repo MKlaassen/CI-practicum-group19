@@ -65,7 +65,8 @@ public class NeuronNetwork {
 
   }
   
-  private double[] arrayresize(double[] array, int index)
+  //method for resizing an array
+  public static double[] arrayresize(double[] array, int index)
   {
 	  double[] output = new double[index];
 	  for(int i=0;i<=index-1;i++)
@@ -74,6 +75,45 @@ public class NeuronNetwork {
 	  }
 	  return output;
   }
+  
+  
+  //calculate output errorgradients and modify output weights
+  public double[] update_Outputweights(double[] outputs, double[] errorvalues, double alpha)
+	{
+		double gradients[] = new double[errorvalues.length];
+		double tempweight;
+		
+		for(int i=0;i<=(6);i++)
+		{
+			gradients[i]=outputs[i]*(1-outputs[i])*errorvalues[i];
+			
+			//change weight of outputlayer
+			tempweight = layers.get(2).get(i).get_Weight(i);
+			layers.get(2).get(i).set_Weight(i,tempweight+alpha*outputs[i]*gradients[i]);
+		}
+		return gradients;
+	}
+  
+  public void update_Hiddenweights(double[] outputs, double alpha, double[] outputgradients, double[] inputs)
+ 	{
+ 		double summation= 0.0;
+	  	double gradients[] = new double[neuronsperlayer];
+ 		double tempweight;
+ 		
+ 		for(int i=0;i<=(outputgradients.length-1);i++)
+ 		{
+ 			summation = summation + outputgradients[i]*layers.get(2).get(i).get_Weight(i);
+ 		}
+ 		
+ 		for(int i=0;i<=(neuronsperlayer-1);i++)
+ 		{
+ 			gradients[i]=outputs[i]*(1-outputs[i])*summation;
+ 			
+ 			//change weight of outputlayer
+ 			tempweight = layers.get(1).get(i).get_Weight(i);
+ 			layers.get(1).get(i).set_Weight(i,tempweight+alpha*inputs[i]*gradients[i]);
+ 		}
+ 	}
   
  }
   
