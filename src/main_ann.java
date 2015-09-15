@@ -1,10 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
-
-import com.sun.jmx.snmp.internal.SnmpOutgoingRequest;
-
-import java.util.Arrays;
 
 public class main_ann {
 static double[][] features = new double[7854][10];
@@ -20,30 +18,16 @@ static int[] targets = new int[7854];
 	    double[] testinputs = new double[10];
 	    double[] testoutputs = new double[7];
 	    double[] hiddenoutputs = new double[7];
-	    int testdesired;
 	    double[] desiredoutputs = new double[7];
 	    double[] errorvalues = new double[7];
  	    double alpha = 0.1;
- 	    double epochs = 2;
+ 	    double epochs = 1000;
  	    double[] outputgradients = new double[7];
+ 	    double sum_err_val = 0.0;
+ 	    double[] output_targets = new double[7854];
  	    //amount of data lines to read from features.txt
  	    
  		NeuronNetwork n1 = new NeuronNetwork(hiddenlayers_amount, neuronsperlayer, incoming_amount, outgoing_amount);
-		
-		//features.txt must be imported here, this is for testing purposes
-		testinputs[0]=0.57855;
-		testinputs[1]=0.82114;
-		testinputs[2]=1.2148;
-		testinputs[3]=0.72998;
-		testinputs[4]=0.34868;
-		testinputs[5]=0.99462;
-		testinputs[6]=-0.018461;
-		testinputs[7]=0.92471;
-		testinputs[8]=0.24418;
-		testinputs[9]=0.063001;
-		
-		testdesired = 7;
-		desiredoutputs[testdesired-1]=1.0;
 		
 		//read features.txt and put into 2-dim array features
 		readFeatures();
@@ -51,20 +35,20 @@ static int[] targets = new int[7854];
 		//read targets.txt
 		readTargets();
 		
-		for(int p=0;p<500;p++)
-		System.out.println(targets[p]);
-		
 		//run code for each epoch:
+		boolean runcode = true;
+		//boolean runcode is for debugging purpose
+		if(runcode){
 		for(int i=0;i<=epochs-1;i++)
 		{
 		System.out.println("epoch" + (i+1));
 		System.out.println();
+		//reset sum of errors every epoch
+		sum_err_val=0;
 		
-		//7854
-		for(int k=0;k<1;k++)
+		//for every input line of features.txt
+		for(int k=0;k<7854;k++)
 		{
-			
-		System.out.println("Target: " + targets[k]);
 			//read 10 new values as inputs
 			for(int m=0;m<10;m++)
 			{
@@ -82,7 +66,16 @@ static int[] targets = new int[7854];
 		hiddenoutputs = n1.calculate_Hiddenoutputs(testinputs);
 		testoutputs = n1.calculate_Finaloutputs(hiddenoutputs);
 		
+		//found outputs in targets.txt format for comparison later, highest value decides the number
+		output_targets[k] = index_Highestvalue(testoutputs)+1;
+		
 		errorvalues = calculate_Errorvalues(testoutputs,desiredoutputs);
+		
+		//calculate sum of all errors each epoch
+		for(int j=0;j<errorvalues.length;j++)
+		{
+		sum_err_val=sum_err_val+errorvalues[j]*errorvalues[j]; 
+		}
 		
 		//begin of backpropagation
 		
@@ -101,16 +94,46 @@ static int[] targets = new int[7854];
 				
 				System.out.println();
 				
-				//print all errorvalues
+				//print all errorvalues and compute the sum of the errorvalues
 				for(int j=0;j<errorvalues.length;j++)
 				{
 				System.out.println((j+1) + ". " + errorvalues[j]);
 				}
+				
+				//print sum of all errorvalues squared for each epoch
+				System.out.println();
+				System.out.println("Sum of errorvalues squared:" + (sum_err_val));
+				System.out.println();
+				
+				//store output_targets into a txt file
+				array_to_txtfile(output_targets,i);
 		
+		}
+		}
+	}
+	
+	public static void array_to_txtfile(double[] data,double epoch)
+	{
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter("src\\output.txt", "UTF-8");
+			writer.println("epoch: " + epoch);
+			writer.println("");
+			for(int i=0; i<data.length;i++)
+			{
+				writer.println((int)data[i]);
+			}
+			writer.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
-	
 	
 	//calculates the errorvalues (desiredoutput - realoutput)
 	public static double[] calculate_Errorvalues(double[] outputs, double[] desiredoutputs)
@@ -121,6 +144,21 @@ static int[] targets = new int[7854];
 			errorv[i]=desiredoutputs[i]-outputs[i];
 		}
 		return errorv;
+	}
+	
+	public static int index_Highestvalue(double[] testoutputs)
+	{
+		double min_Value = Double.MIN_VALUE;
+		int index =0;
+		for(int i=0;i<testoutputs.length;i++)
+		{
+		if(testoutputs[i]>min_Value)
+		{
+			min_Value=testoutputs[i];
+			index=i;
+		}
+		}
+		return index;
 	}
 				
 
@@ -135,7 +173,7 @@ static int[] targets = new int[7854];
 		
 //		features[0] = new double[] {1,2,3,4,5,6,7,8,9,0};
 		
-		for(int i=0; i<7854; i++){
+		for(int i=0; i<7853; i++){
 			String line = sc.next();
 			String[] values = line.split(",");
 			for (int j=0; j<10; j++){
@@ -153,8 +191,7 @@ static int[] targets = new int[7854];
 			 int i=0;
 		        while(sc.hasNextInt())
 		        {
-		        	targets[i]=sc.nextInt();
-		            i=i++;
+		        	targets[i++]=sc.nextInt();
 		        }
 
 		    } catch (FileNotFoundException e1) {
