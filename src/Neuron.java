@@ -8,7 +8,6 @@
  */
 public class Neuron {
     
-   private static int numnodes;
    private int amount_inputs;
    private double[] weights;
   
