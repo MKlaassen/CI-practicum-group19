@@ -16,10 +16,12 @@ public class Neuron {
      this.amount_inputs = a_inputs;
      //the amount of weights is equal to the amount of inputs.
      weights = new double[amount_inputs+1];
-     for(int i = 0 ; i<(weights.length-1); i++) {
-     //give all weights a random value between -0.5 and 0.5  
+     for(int i = 0 ; i<(weights.length-2); i++) {
+     //give all weights a random value between -0.5 and 0.5 except for the threshold 
      weights[i] = Math.random()-0.5;
      }
+     //the last weight corrosponds to the threshold.
+     weights[weights.length-1]=0.5;
      
    }
    
