@@ -12,7 +12,7 @@ static int[] targets = new int[7854];
 	public static void main(String[] args) {
 		//amount of hiddenlayers not yet adjustable
 		int hiddenlayers_amount = 1;
-	    int neuronsperlayer = 4;
+	    int neuronsperlayer = 50;
 	    int incoming_amount = 10;
 	    int outgoing_amount = 7;
 	    double[] testinputs = new double[10];
@@ -20,8 +20,8 @@ static int[] targets = new int[7854];
 	    double[] hiddenoutputs = new double[7];
 	    double[] desiredoutputs = new double[7];
 	    double[] errorvalues = new double[7];
- 	    double alpha = 0.1;
- 	    double epochs = 100;
+ 	    double alpha = 0.5;
+ 	    double epochs = 300;
  	    double[] outputgradients = new double[7];
  	    double sum_err_val = 0.0;
  	    double[] output_targets = new double[7854];
@@ -63,7 +63,7 @@ static int[] targets = new int[7854];
 					
 				//calculate the hiddenoutputs
 				hiddenoutputs = n1.calculate_Hiddenoutputs(testinputs);
-					
+				
 				//calculate the outputs
 				testoutputs = n1.calculate_Finaloutputs(hiddenoutputs);
 		
@@ -107,22 +107,19 @@ static int[] targets = new int[7854];
 			System.out.println();
 			System.out.println("Sum of errorvalues squared:" + (sum_err_val));
 			System.out.println();
-				
-			//store output_targets into a txt file
-			array_to_txtfile(output_targets,i);
 		
 		}	
+		//store output_of targets of last epoch into a txt file
+		array_to_txtfile(output_targets);
 		
 	}
 	
-	public static void array_to_txtfile(double[] data,double epoch)
+	public static void array_to_txtfile(double[] data)
 	{
 		//Prints the data and epoch number to textfile output.txt
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter("src\\output.txt", "UTF-8");
-			writer.println("epoch: " + epoch);
-			writer.println("");
 			for(int i=0; i<data.length;i++)
 			{
 				writer.println((int)data[i]);
