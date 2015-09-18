@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class main_ann {
 //parameters of the network	
 private static int hiddenlayers_amount = 1;
-private static int neuronsperlayer = 35;
+private static int neuronsperlayer = 50;
 private static int incoming_amount = 10;
 private static int outgoing_amount = 7;
 private static double alpha = 0.1;
@@ -64,6 +64,7 @@ private static double sum_square_error_validation_fold;
 		//put used parameters + sum of squared errors in a text file for distinguish data
 		data_to_txtfile();
 		
+		System.out.println("done");
 		
 	}
 	

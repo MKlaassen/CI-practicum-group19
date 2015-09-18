@@ -47,7 +47,6 @@ f7.write ("Error percentage: (%.2f%%) \n" %(amount2*100./len(lines3)))
 
 f7.write("Parameters: ")
 f7.write("%s\n" %(lines6))
-f7.write ("################################################################\n")
 f7.close()
 
 os.system("pause")
