@@ -1,8 +1,13 @@
 Taakverdeling report
 
--Vragen van report moeten beantwoord worden voor het report-
-2.1 architecture (1-5) 		- 	??
-2.2 Training (6-9) 			-	??
-2.3 Optimization (10-11)	-	??
-2.4 Evaluation (12-14)		-	??
+Inleiding - Rick
 
+-Vragen van report moeten beantwoord worden voor het report-
+2.1 architecture (1-5) 		- 	Matthijs
+2.2 Training (6-9) 		-	Daniël
+2.3 Optimization (10-11)	-	Daniël
+2.4 Evaluation (12-14)		-	Daniël
+2.5 Matlab's Toolbox		-	Daniël
+
+
+Zondag opsturen en alles renamen: -Daniël

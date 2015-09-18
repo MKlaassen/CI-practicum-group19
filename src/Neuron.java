@@ -20,7 +20,7 @@ public class Neuron {
      weights[i] = Math.random()-0.5;
      }
      //the last weight corrosponds to the threshold.
-     weights[weights.length-1]=0.7;
+     weights[weights.length-1]=1;
      
    }
    
