@@ -11,8 +11,8 @@ static int[] targets = new int[7854];
 
 	public static void main(String[] args) {
 		//amount of hiddenlayers not yet adjustable
-		int hiddenlayers_amount = 1;
-	    int neuronsperlayer = 5;
+		int hiddenlayers_amount = 2;
+	    int neuronsperlayer = 30;
 	    int incoming_amount = 10;
 	    int outgoing_amount = 7;
 	    double[] testinputs = new double[10];
@@ -20,8 +20,8 @@ static int[] targets = new int[7854];
 	    double[] hiddenoutputs = new double[7];
 	    double[] desiredoutputs = new double[7];
 	    double[] errorvalues = new double[7];
- 	    double alpha = 0.5;
- 	    double epochs = 300;
+ 	    double alpha = 0.1;
+ 	    double epochs = 100;
  	    double[] outputgradients = new double[7];
  	    double sum_err_val = 0.0;
  	    double[] output_targets = new double[7854];
@@ -29,6 +29,7 @@ static int[] targets = new int[7854];
  	    //Make a neural network named n1 with the selected parameters.
  		NeuronNetwork n1 = new NeuronNetwork(hiddenlayers_amount, neuronsperlayer, outgoing_amount, incoming_amount);
 		
+ 		
 		//read features.txt and put into 2-dim array features
 		readFeatures();
 		

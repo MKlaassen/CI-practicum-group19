@@ -35,6 +35,7 @@ public class NeuronNetwork {
 		
 		layers.add(new OutputLayer(n_outputs, neurons_per_layer));
 	
+		
 	}
 
 	public double[] calculate_Outputs(double[] inputs, int layer)
@@ -51,11 +52,11 @@ public class NeuronNetwork {
 	public void update(double[] doutputs, double alpha, double[] inputs) {
 	   
 	  //Update output layer.
-	  layers.get(layers.size()-1).calculate_Gradients(calculate_Outputs(inputs, layers.size()-1), inputs, doutputs, alpha, null);
+	  layers.get(layers.size()-1).calculate_Gradients(calculate_Outputs(inputs, layers.size()-1), calculate_Outputs(inputs, layers.size()-2), doutputs, alpha, null);
 	  
 	  //Update hidden layers.
 	  for(int i = layers.size()-2 ; i >= 0 ; i--) {
-	    layers.get(i).calculate_Gradients(calculate_Outputs(inputs, i), inputs, doutputs, alpha, layers.get(i+1));
+	    layers.get(i).calculate_Gradients(calculate_Outputs(inputs, i), calculate_Outputs(inputs,i-1), doutputs, alpha, layers.get(i+1));
 	  }
 	}
 

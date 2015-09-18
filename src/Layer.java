@@ -11,9 +11,13 @@ import java.util.ArrayList;
 public abstract class Layer {
     protected ArrayList<Neuron> neurons;
     protected double[] layergradients;
+    private static int layernumber = 0;
+    private int thisLayer = 0;
     
     public Layer(int number_neurons, int a_inputs){
       neurons = new ArrayList<>();
+      thisLayer=layernumber;
+      layernumber++;
       
       for(int i = 0 ; i< (number_neurons); i++) {
         neurons.add(new Neuron(a_inputs));

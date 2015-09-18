@@ -36,8 +36,7 @@ public class OutputLayer extends Layer {
       gradients[i]=output[i]*(1-output[i])*errors[i];
     }
     
-    layergradients = gradients;
-
+    layergradients = gradients; 
     update_Weights(alpha, input);
 
     return gradients;
