@@ -12,7 +12,7 @@ static int[] targets = new int[7854];
 	public static void main(String[] args) {
 		//amount of hiddenlayers not yet adjustable
 		int hiddenlayers_amount = 1;
-	    int neuronsperlayer = 50;
+	    int neuronsperlayer = 5;
 	    int incoming_amount = 10;
 	    int outgoing_amount = 7;
 	    double[] testinputs = new double[10];
@@ -27,7 +27,7 @@ static int[] targets = new int[7854];
  	    double[] output_targets = new double[7854];
  	    
  	    //Make a neural network named n1 with the selected parameters.
- 		NeuronNetwork n1 = new NeuronNetwork(hiddenlayers_amount, neuronsperlayer, incoming_amount, outgoing_amount);
+ 		NeuronNetwork n1 = new NeuronNetwork(hiddenlayers_amount, neuronsperlayer, outgoing_amount, incoming_amount);
 		
 		//read features.txt and put into 2-dim array features
 		readFeatures();
@@ -61,30 +61,27 @@ static int[] targets = new int[7854];
 				//only the desiredouput that corrosponds to the target is set to 1
 				desiredoutputs[targets[k]-1]=1.0;
 					
-				//calculate the hiddenoutputs
-				hiddenoutputs = n1.calculate_Hiddenoutputs(testinputs);
-				
 				//calculate the outputs
-				testoutputs = n1.calculate_Finaloutputs(hiddenoutputs);
-		
+				//testoutputs = n1.calculate_Outputs(testinputs, n1.size()-1);
+				
 				//found outputs in targets.txt format for comparison later, highest value decides the number since use of sigmoid this outputs a integer instead of a double
-				output_targets[k] = index_Highestvalue(testoutputs)+1;
+				//output_targets[k] = index_Highestvalue(testoutputs)+1;
 		
 				//calculate the errorvalues
-				errorvalues = calculate_Errorvalues(testoutputs,desiredoutputs);
+				//errorvalues = calculate_Errorvalues(testoutputs,desiredoutputs);
 		
 				//calculate sum of all errors each epoch
-				for(int j=0;j<errorvalues.length;j++)
-				{
-					sum_err_val=sum_err_val+errorvalues[j]*errorvalues[j]; 
-				}
+				//for(int j=0;j<errorvalues.length;j++)
+				//{
+				//	sum_err_val=sum_err_val+errorvalues[j]*errorvalues[j]; 
+				//}
 		
 				//begin of backpropagation:
-				//update the output weights
-				outputgradients = n1.update_Outputweights(testoutputs,hiddenoutputs,errorvalues,alpha);
-		
-				//update the hidden weights
-				n1.update_Hiddenweights(testoutputs,hiddenoutputs, alpha, outputgradients, testinputs);
+				n1.update(desiredoutputs, alpha, testinputs);
+				
+				testoutputs = n1.calculate_Outputs(testinputs, hiddenlayers_amount+1);
+				
+				output_targets[k] = index_Highestvalue(testoutputs)+1;
 		
 			}//at this point 1 line of 10 input values is processed, returning to next line.
 		

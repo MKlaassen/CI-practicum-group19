@@ -8,8 +8,9 @@ import java.util.ArrayList;
  * @author Matthijs, Rick, Daniël
  * date: 11-09-2015
  */
-public class Layer {
-    private ArrayList<Neuron> neurons;
+public abstract class Layer {
+    protected ArrayList<Neuron> neurons;
+    protected double[] layergradients;
     
     public Layer(int number_neurons, int a_inputs){
       neurons = new ArrayList<>();
@@ -17,52 +18,38 @@ public class Layer {
       for(int i = 0 ; i< (number_neurons); i++) {
         neurons.add(new Neuron(a_inputs));
       }
+     
     }
     
     public double[] calculate_Outputs(double[] inputs)
     {	 
-  	  double[] outputvector = new double[neurons.size()];
-  	 
-  		 for(int i = 0; i < (neurons.size()); i++)
-  		 {
-  			 outputvector[i] = this.get(i).calculate_Output(inputs);
-  		 }
-  	  return outputvector;
+  	  double[] outputs = new double[this.size()];
+  	  
+  	  for(int i = 0 ; i < outputs.length ; i++) {
+  	    outputs[i] = neurons.get(i).calculate_Output(inputs);
+  	  }
+  	  return outputs;
     }
     
-    public void update_Weights(double alpha, double[] hiddenoutputs, double[] gradients)
+    public void update_Weights(double alpha, double[] hiddenoutputs)
     {
  
-    	for(int j=0;j<neurons.size();j++)
+    	for(int k=0;k<neurons.size();k++)
     	{
-    		for(int k=0;k<gradients.length;k++)
+    		for(int j=0;j<neurons.get(k).get_Weights().length-1;j++)
     		{
-    			neurons.get(j).set_Weight(k,(neurons.get(j).get_Weight(k)+alpha*hiddenoutputs[j]*gradients[k]));
+    		  double weightcorrection = alpha*hiddenoutputs[j]*layergradients[k];
+    		  neurons.get(k).update_Weight(j, weightcorrection);
     		}
     	}
     	
+    }
+
+    public double[] calculate_Gradients(double[] output, double[] input, double[] doutput, double alpha, Layer nextlayer) {
+      // TODO Auto-generated method stub
+      return null;
     }
     
-    public double[] calculate_Gradients(double[] output, double[] input, double[] gradients, double alpha)
-    {
-    	double[] new_gradients = new double[neurons.size()];
-    	for(int j = 0;j<neurons.size();j++)
-    	{
-    		double sum = 0;
-    		for(int k = 0;k<gradients.length;k++)
-    		{
-    			sum = sum + gradients[k]*neurons.get(j).get_Weight(k);
-    		}
-    		new_gradients[j]=output[j]*(1-output[j])*sum;
-    	}
-    	
-    	//Update weights
-    	update_Weights(alpha, input, new_gradients);
-    	
-    	
-    	
-    	return new_gradients;
-    }
     public Neuron get(int i){
       return neurons.get(i);
     }
@@ -71,6 +58,12 @@ public class Layer {
       return neurons.size();
     }
     
+    public ArrayList<Neuron> getNeurons() {
+      return neurons;
+    }
     
+    public double[] getGradients(){
+      return layergradients;
+    }
     
 }

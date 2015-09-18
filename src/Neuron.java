@@ -49,9 +49,9 @@ public class Neuron {
      weights = w;
    }
    
-   public void set_Weight(int num, double value)
+   public void update_Weight(int num, double correction)
    {
-	   weights[num]=value;
+	   weights[num] += correction;
    }
    
    public double get_Weight(int num) 
@@ -63,6 +63,7 @@ public class Neuron {
    {
      return weights;
    }
+
    
    
 
