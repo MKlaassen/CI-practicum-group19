@@ -1,6 +1,6 @@
 hiddenlayers amount: 1
-neurons per layer: 100
+neurons per layer: 60
 incoming amount: 10
 outgoing amount: 7
 alpha: 0.1
-epochs: 20
+epochs: 50

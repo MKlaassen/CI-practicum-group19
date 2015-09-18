@@ -1,31 +1,33 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 public class main_ann {
-private static double[][] features = new double[7854][10];
-private static int[] targets = new int[7854];
+//parameters of the network	
 private static int hiddenlayers_amount = 1;
-private static int neuronsperlayer = 100;
+private static int neuronsperlayer = 60;
 private static int incoming_amount = 10;
 private static int outgoing_amount = 7;
 private static double alpha = 0.1;
-private static int epochs = 20;
+private static int epochs = 50;	
+	
+private static double[][] features = new double[7854][10];
+private static int[] targets = new int[7854];
+private static double[][][] fold = new double[7][(targets.length)/7][10];
+private static double[] testinputs = new double[10];
+private static double[] testoutputs = new double[7];
+private static double[] hiddenoutputs = new double[7];
+private static double[] desiredoutputs = new double[7];
+private static double[] errorvalues = new double[7];
+private static double[] outputgradients = new double[7];
+private static double sum_err_val = 0.0;
+private static double[] output_targets = new double[7854];
 
 	public static void main(String[] args) {
-		//amount of hiddenlayers not yet adjustable
-		
-	    double[] testinputs = new double[10];
-	    double[] testoutputs = new double[7];
-	    double[] hiddenoutputs = new double[7];
-	    double[] desiredoutputs = new double[7];
-	    double[] errorvalues = new double[7];
- 	    double[] outputgradients = new double[7];
- 	    double sum_err_val = 0.0;
- 	    double[] output_targets = new double[7854];
- 	    
+    
  	    //Make a neural network named n1 with the selected parameters.
  		NeuronNetwork n1 = new NeuronNetwork(hiddenlayers_amount, neuronsperlayer, outgoing_amount, incoming_amount);
 		
@@ -35,6 +37,25 @@ private static int epochs = 20;
 		
 		//read targets.txt and put into 1-dim array targets
 		readTargets();
+		
+		//divide features in 7 folds, 1 test fold, 1 validation fold, 5 training folds
+		int num = (targets.length)/7;
+		for(int f=0;f<7;f++)
+		{
+			for(int k=0;k<num;k++)
+			{
+				for(int m=0;m<10;m++)
+				{
+					fold[f][k][m] = features[k][m];
+				}
+			}
+		}
+		
+		
+		
+		
+		
+		
 		
 		//run code for each epoch:
 		for(int i=0;i<=epochs-1;i++)
@@ -115,9 +136,45 @@ private static int epochs = 20;
 		//store parameters into a txt file
 		data_to_txtfile();
 		
-		//Call python script for error percentage
-		//to be implemented
 		
+	}
+	
+	public static void run_test_fold(NeuronNetwork n)
+	{
+		for(int k=0;k<(targets.length)/7;k++)
+		{
+			//read 10 new values as inputs
+			for(int m=0;m<10;m++)
+			{
+				testinputs[m]=features[k][m];
+			}
+		
+			//put zero's in the desiredoutputs vector
+			for(int z=0;z<desiredoutputs.length;z++)
+			{	
+				desiredoutputs[z]=0.0;
+			}
+		
+			//only the desiredouput that corrosponds to the target is set to 1
+			desiredoutputs[targets[k]-1]=1.0;
+				
+			//begin of backpropagation:
+			n.update(desiredoutputs, alpha, testinputs);
+			
+			testoutputs = n.calculate_Outputs(testinputs, hiddenlayers_amount+1);
+			
+			//calculate the errorvalues
+			errorvalues = calculate_Errorvalues(testoutputs,desiredoutputs);
+	
+			//calculate sum of all errors
+			for(int j=0;j<errorvalues.length;j++)
+			{
+				sum_err_val=sum_err_val+errorvalues[j]*errorvalues[j]; 
+			}
+			
+			output_targets[k] = index_Highestvalue(testoutputs)+1;
+	
+		}//at this point 1 line of 10 input values is processed, returning to next line.
 	}
 	
 	public static void array_to_txtfile(double[] data)

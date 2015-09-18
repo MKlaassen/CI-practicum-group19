@@ -10,4 +10,16 @@ for i in range(len(lines1)):
 		amount+=1
 print "%d (%.2f%%)" %(amount, amount*100./len(lines1))
 import os
+
+
+f3 = open("parameters.txt")
+lines3 = f3.readlines()
+f3.close()
+
+f4 = open("results.txt","a")
+f4.write("Error percentage: %.2f%%" %(amount*100./len(lines1)))
+f4.write("%s" %(lines3))
+f4.write("\n")
+f4.close()
+
 os.system("pause")
