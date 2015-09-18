@@ -12,7 +12,7 @@ static int[] targets = new int[7854];
 	public static void main(String[] args) {
 		//amount of hiddenlayers not yet adjustable
 		int hiddenlayers_amount = 2;
-	    int neuronsperlayer = 30;
+	    int neuronsperlayer = 10;
 	    int incoming_amount = 10;
 	    int outgoing_amount = 7;
 	    double[] testinputs = new double[10];
@@ -21,7 +21,7 @@ static int[] targets = new int[7854];
 	    double[] desiredoutputs = new double[7];
 	    double[] errorvalues = new double[7];
  	    double alpha = 0.1;
- 	    double epochs = 100;
+ 	    double epochs = 20;
  	    double[] outputgradients = new double[7];
  	    double sum_err_val = 0.0;
  	    double[] output_targets = new double[7854];
@@ -68,19 +68,21 @@ static int[] targets = new int[7854];
 				//found outputs in targets.txt format for comparison later, highest value decides the number since use of sigmoid this outputs a integer instead of a double
 				//output_targets[k] = index_Highestvalue(testoutputs)+1;
 		
-				//calculate the errorvalues
-				//errorvalues = calculate_Errorvalues(testoutputs,desiredoutputs);
-		
-				//calculate sum of all errors each epoch
-				//for(int j=0;j<errorvalues.length;j++)
-				//{
-				//	sum_err_val=sum_err_val+errorvalues[j]*errorvalues[j]; 
-				//}
+				
 		
 				//begin of backpropagation:
 				n1.update(desiredoutputs, alpha, testinputs);
 				
 				testoutputs = n1.calculate_Outputs(testinputs, hiddenlayers_amount+1);
+				
+				//calculate the errorvalues
+				errorvalues = calculate_Errorvalues(testoutputs,desiredoutputs);
+		
+				//calculate sum of all errors each epoch
+				for(int j=0;j<errorvalues.length;j++)
+				{
+					sum_err_val=sum_err_val+errorvalues[j]*errorvalues[j]; 
+				}
 				
 				output_targets[k] = index_Highestvalue(testoutputs)+1;
 		
