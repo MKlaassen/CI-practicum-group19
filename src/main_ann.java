@@ -115,6 +115,9 @@ private static int epochs = 20;
 		//store parameters into a txt file
 		data_to_txtfile();
 		
+		//Call python script for error percentage
+		//to be implemented
+		
 	}
 	
 	public static void array_to_txtfile(double[] data)
