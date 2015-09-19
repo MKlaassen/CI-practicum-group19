@@ -22,3 +22,43 @@ For the validation layer:
 Amount of errors: 59 
 Error percentage: (5.26%) 
 Parameters: ['hiddenlayers amount: 1\n', 'neurons per layer: 50\n', 'incoming amount: 10\n', 'outgoing amount: 7\n', 'alpha: 0.1\n', 'epochs: 50\n', 'sum of squared errors in test fold:900.3112524950209\n', 'sum of squared errors in validation fold:107.03829775556916\n']
+################################################################
+For the test layer: 
+Amount of errors: 584 
+Error percentage: (52.05%) 
+For the validation layer: 
+Amount of errors: 29 
+Error percentage: (2.58%) 
+Parameters: ['hiddenlayers amount: 1\n', 'neurons per layer: 100\n', 'incoming amount: 10\n', 'outgoing amount: 7\n', 'alpha: 0.1\n', 'epochs: 200\n', 'sum of squared errors in test fold:774.8359800372228\n', 'sum of squared errors in validation fold:49.47591183330715\n']
+################################################################
+For the test layer: 
+Amount of errors: 565 
+Error percentage: (50.36%) 
+For the validation layer: 
+Amount of errors: 40 
+Error percentage: (3.57%) 
+Parameters: ['hiddenlayers amount: 1\n', 'neurons per layer: 100\n', 'incoming amount: 10\n', 'outgoing amount: 7\n', 'alpha: 0.1\n', 'epochs: 400\n', 'sum of squared errors in test fold:793.0280531161528\n', 'sum of squared errors in validation fold:64.83011346963276\n']
+################################################################
+For the test layer: 
+Amount of errors: 948 
+Error percentage: (84.49%) 
+For the validation layer: 
+Amount of errors: 122 
+Error percentage: (10.87%) 
+Parameters: ['hiddenlayers amount: 1\n', 'neurons per layer: 100\n', 'incoming amount: 10\n', 'outgoing amount: 7\n', 'alpha: 0.1\n', 'epochs: 100\n', 'sum of squared errors in test fold:1471.842576903693\n', 'sum of squared errors in validation fold:187.22818173236095\n']
+################################################################
+For the test layer: 
+Amount of errors: 948 
+Error percentage: (84.49%) 
+For the validation layer: 
+Amount of errors: 122 
+Error percentage: (10.87%) 
+Parameters: ['hiddenlayers amount: 1\n', 'neurons per layer: 100\n', 'incoming amount: 10\n', 'outgoing amount: 7\n', 'alpha: 0.1\n', 'epochs: 100\n', 'sum of squared errors in test fold:1471.842576903693\n', 'sum of squared errors in validation fold:187.22818173236095\n']
+################################################################
+For the test layer: 
+Amount of errors: 972 
+Error percentage: (86.63%) 
+For the validation layer: 
+Amount of errors: 43 
+Error percentage: (3.83%) 
+Parameters: ['hiddenlayers amount: 1\n', 'neurons per layer: 100\n', 'incoming amount: 10\n', 'outgoing amount: 7\n', 'alpha: 0.1\n', 'epochs: 1000\n', 'sum of squared errors in test fold:1182.6470287797981\n', 'sum of squared errors in validation fold:91.95291250682537\n']
