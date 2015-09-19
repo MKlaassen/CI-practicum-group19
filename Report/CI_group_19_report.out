@@ -1,8 +1,10 @@
 \BOOKMARK [1][-]{section.1}{Architecture}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{test}{section.1}% 2
-\BOOKMARK [1][-]{section.2}{Training}{}% 3
-\BOOKMARK [2][-]{subsection.2.1}{test}{section.2}% 4
-\BOOKMARK [1][-]{section.3}{Optimization}{}% 5
-\BOOKMARK [2][-]{subsection.3.1}{test}{section.3}% 6
-\BOOKMARK [1][-]{section.4}{Evaluation}{}% 7
-\BOOKMARK [2][-]{subsection.4.1}{test}{section.4}% 8
+\BOOKMARK [1][-]{section.2}{Training}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Dividing the data}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Evaluating the performace}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{The amount of training epochs}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Impact of the initialization}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Optimization}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{test}{section.3}% 8
+\BOOKMARK [1][-]{section.4}{Evaluation}{}% 9
+\BOOKMARK [2][-]{subsection.4.1}{test}{section.4}% 10

@@ -8,11 +8,11 @@ import java.util.Scanner;
 public class main_ann {
 	//parameters of the network	
 	private static int hiddenlayers_amount = 1;
-	private static int neuronsperlayer = 150;
+	private static int neuronsperlayer = 30;
 	private static int incoming_amount = 10;
 	private static int outgoing_amount = 7;
 	private static double alpha = 0.1;
-	private static int epochs = 1000;	
+	private static int epochs = 50;	
 
 	private static double[][] features = new double[7854][10];
 	private static int[] targets = new int[7854];
@@ -69,12 +69,13 @@ public class main_ann {
 		//put used parameters + sum of squared errors in a text file for distinguish data
 		data_to_txtfile();
 
-		System.out.println("done");
+		System.out.println("done.");
 
 	}
 
 	public static void run_test_fold(NeuronNetwork n)
 	{
+		System.out.println("Running test fold");
 		double[] testinputs = new double[10];
 		double[] testoutputs = new double[7];
 		double[] desiredoutputs = new double[7];
@@ -130,11 +131,13 @@ public class main_ann {
 
 	public static void run_training_fold(NeuronNetwork n, int epochs)
 	{
+		System.out.println("Running training fold");
 		double[] testinputs = new double[10];
 		double[] desiredoutputs = new double[7];
 
 		for(int g=0;g<epochs;g++)
 		{
+			System.out.print("Epoch: " + (g+1) + "\r");
 			//for all 5 training sets
 			for(int l=1;l<6;l++)
 			{
@@ -165,6 +168,7 @@ public class main_ann {
 
 	public static void run_validation_fold(NeuronNetwork n)
 	{
+		System.out.println("Running validation fold");
 		double[] testinputs = new double[10];
 		double[] testoutputs = new double[7];
 		double[] desiredoutputs = new double[7];
@@ -223,6 +227,7 @@ public class main_ann {
 
 	public static void run_unknown(NeuronNetwork n)
 	{
+		System.out.println("Running unkown.txt");
 		double[] testinputs = new double[10];
 		double[] testoutputs = new double[7];
 		double[] output_targets = new double[784];
