@@ -8,11 +8,11 @@ import java.util.Scanner;
 public class main_ann {
 	//parameters of the network	
 	private static int hiddenlayers_amount = 1;
-	private static int neuronsperlayer = 30;
+	private static int neuronsperlayer = 100;
 	private static int incoming_amount = 10;
 	private static int outgoing_amount = 7;
 	private static double alpha = 0.1;
-	private static int epochs = 20;	
+	private static int epochs = 400;	
 
 	private static double[][] features = new double[7854][10];
 	private static int[] targets = new int[7854];
