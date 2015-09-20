@@ -4,5 +4,5 @@ incoming amount: 10
 outgoing amount: 7
 alpha: 0.1
 epochs: 10
-sum of squared errors in test fold:1228.5761790966574
-sum of squared errors in validation fold:165.4504779518762
+sum of squared errors in test fold:1728.6765920678604
+sum of squared errors in validation fold:254.35226860332224

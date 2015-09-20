@@ -17,7 +17,7 @@ public class Main {
 	private static int incoming_amount = 10;
 	private static int outgoing_amount = 7;
 	private static double alpha = 0.1;
-	private static int epochs = 1000;	
+	private static int epochs = 10;	
 
 	private static double[][] features = new double[7854][10];
 	private static int[] targets = new int[7854];
