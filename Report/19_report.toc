@@ -2,9 +2,9 @@
 \contentsline {section}{\numberline {1}Introduction}{3}{section.1}
 \contentsline {subsection}{\numberline {1.1}test}{3}{subsection.1.1}
 \contentsline {section}{\numberline {2}Architecture}{4}{section.2}
-\contentsline {section}{\numberline {3}Training}{4}{section.3}
-\contentsline {subsection}{\numberline {3.1}Dividing the data}{4}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Evaluating the performace}{4}{subsection.3.2}
+\contentsline {section}{\numberline {3}Training}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}Dividing the data}{5}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Evaluating the performace}{5}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}The amount of training epochs}{5}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Impact of the initialization}{5}{subsection.3.4}
 \contentsline {section}{\numberline {4}Optimization}{5}{section.4}

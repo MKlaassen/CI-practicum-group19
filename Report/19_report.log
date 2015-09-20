@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.5.30)  20 SEP 2015 11:55
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.5.30)  20 SEP 2015 14:17
 entering extended mode
 **C:/Users/Daniel/Documents/CI-practicum-group19/Report/19_report.tex
 (C:/Users/Daniel/Documents/CI-practicum-group19/Report/19_report.tex
@@ -854,43 +854,31 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 [3
 
 ] (C:\Users\Daniel\Documents\CI-practicum-group19\Report\2_1_architecture.tex
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 5.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 4.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\omslmr.fd"
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 5.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 5--6
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 6--7
+Underfull \hbox (badness 10000) in paragraph at lines 4--6
 
  []
 
+<images/schemeit-project.png, id=110, 523.20468pt x 535.2497pt>
+File: images/schemeit-project.png Graphic file (type png)
 
-Underfull \hbox (badness 10000) in paragraph at lines 7--8
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 8--9
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 9--10
-
- []
-
-) (C:\Users\Daniel\Documents\CI-practicum-group19\Report\2_2_training.tex
+<use images/schemeit-project.png>
+Package pdftex.def Info: images/schemeit-project.png used on input line 19.
+(pdftex.def)             Requested size: 312.9803pt x 320.18855pt.
+)
+(C:\Users\Daniel\Documents\CI-practicum-group19\Report\2_2_training.tex
 [4
 
-])
+ <C:/Users/Daniel/Documents/CI-practicum-group19/Report/images/schemeit-project
+.png>])
 (C:\Users\Daniel\Documents\CI-practicum-group19\Report\2_3_optimization.tex
-<testresults/errorpercentages.png, id=118, 889.07156pt x 459.21562pt>
+[5] <testresults/errorpercentages.png, id=128, 889.07156pt x 459.21562pt>
 File: testresults/errorpercentages.png Graphic file (type png)
 
 <use testresults/errorpercentages.png>
@@ -902,27 +890,28 @@ Overfull \hbox (30.65784pt too wide) in paragraph at lines 14--15
  [] 
  []
 
-[5 <C:/Users/Daniel/Documents/CI-practicum-group19/Report/testresults/errorperc
-entages.png>])
-(C:\Users\Daniel\Documents\CI-practicum-group19\Report\2_4_evaluation.tex
-<testresults/confusionmatrix.png, id=128, 288.3272pt x 150.5625pt>
+) (C:\Users\Daniel\Documents\CI-practicum-group19\Report\2_4_evaluation.tex
+<testresults/confusionmatrix.png, id=132, 288.3272pt x 150.5625pt>
 File: testresults/confusionmatrix.png Graphic file (type png)
 
 <use testresults/confusionmatrix.png>
 Package pdftex.def Info: testresults/confusionmatrix.png used on input line 9.
 (pdftex.def)             Requested size: 227.62204pt x 118.86725pt.
 
-<testresults/confusionplot.png, id=129, 344.03531pt x 350.81062pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[6 <C:/Users/Daniel/Documents/CI-practicum-group19/Report/testresults/errorperc
+entages.png>]
+<testresults/confusionplot.png, id=139, 344.03531pt x 350.81062pt>
 File: testresults/confusionplot.png Graphic file (type png)
 
 <use testresults/confusionplot.png>
 Package pdftex.def Info: testresults/confusionplot.png used on input line 18.
 (pdftex.def)             Requested size: 170.71652pt x 174.07735pt.
- [6 <C:/Users/Daniel/Documents/CI-practicum-group19/Report/testresults/confusio
-nmatrix.png> <C:/Users/Daniel/Documents/CI-practicum-group19/Report/testresults
-/confusionplot.png>])
+)
 (C:\Users\Daniel\Documents\CI-practicum-group19\Report\2_5_matlabtoolbox.tex
-<testresults/nprtool.png, id=137, 233.37187pt x 237.13594pt>
+<testresults/nprtool.png, id=141, 233.37187pt x 237.13594pt>
 File: testresults/nprtool.png Graphic file (type png)
 
 <use testresults/nprtool.png>
@@ -932,10 +921,19 @@ File: testresults/confusionplot.png Graphic file (type png)
  <use testresults/confusionplot.png>
 Package pdftex.def Info: testresults/confusionplot.png used on input line 13.
 (pdftex.def)             Requested size: 170.71652pt x 174.07735pt.
-) [7 <C:/Users/Daniel/Documents/CI-practicum-group19/Report/testresults/nprtool
-.png>]
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[7 <C:/Users/Daniel/Documents/CI-practicum-group19/Report/testresults/confusion
+matrix.png> <C:/Users/Daniel/Documents/CI-practicum-group19/Report/testresults/
+confusionplot.png>])
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8 <C:/Users/Daniel/Documents/CI-practicum-group19/Report/testresults/nprtool.
+png>]
 (C:\Users\Daniel\Documents\CI-practicum-group19\Report\bibliography.tex)
-[8
+[9
 
 ]
 \tf@thm=\write5
@@ -949,13 +947,13 @@ Package rerunfilecheck Info: File `19_report.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 98.
  ) 
 Here is how much of TeX's memory you used:
- 13702 strings out of 493921
- 214072 string characters out of 3147279
+ 13711 strings out of 493921
+ 214268 string characters out of 3147279
  358388 words of memory out of 3000000
- 16689 multiletter control sequences out of 15000+200000
+ 16695 multiletter control sequences out of 15000+200000
  73568 words of font info for 71 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 53i,11n,92p,1136b,484s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 53i,11n,92p,1136b,480s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/M
 iKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files/MiKTeX 2.9/fonts/e
 nc/dvips/lm/lm-mathsy.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
@@ -968,9 +966,9 @@ MiKTeX 2.9/fonts/type1/public/lm/lmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
 pe1/public/lm/lmri10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr
 o10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><C:/Progr
 am Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb>
-Output written on 19_report.pdf (8 pages, 391114 bytes).
+Output written on 19_report.pdf (9 pages, 481145 bytes).
 PDF statistics:
- 203 PDF objects out of 1000 (max. 8388607)
- 31 named destinations out of 1000 (max. 500000)
- 161 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 210 PDF objects out of 1000 (max. 8388607)
+ 33 named destinations out of 1000 (max. 500000)
+ 166 words of extra memory for PDF output out of 10000 (max. 10000000)
 
