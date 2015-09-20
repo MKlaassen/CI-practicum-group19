@@ -3,6 +3,6 @@ neurons per layer: 100
 incoming amount: 10
 outgoing amount: 7
 alpha: 0.1
-epochs: 400
-sum of squared errors in test fold:1678.431275424536
-sum of squared errors in validation fold:54.2501450115458
+epochs: 10
+sum of squared errors in test fold:1228.5761790966574
+sum of squared errors in validation fold:165.4504779518762

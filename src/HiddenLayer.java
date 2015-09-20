@@ -1,13 +1,10 @@
+/**Class that is used to extend the layer class and construct a hidden layer containing neurons
+ * @author Matthijs Klaassen, Rick Molenaar, Daniël Brouwer
+ * @version: 18-09-2015
+ */
+
 import java.util.ArrayList;
 
-/**
- * 
- */
-
-/**
- * @author Matthijs
- *
- */
 public class HiddenLayer extends Layer {
 
 
@@ -29,6 +26,7 @@ public class HiddenLayer extends Layer {
 
     for(int j=0;j<neurons.size();j++)
     {
+    	//calculate gradients of this layer with the gradients of the next layer
       for(int k=0;k<nextlayer.size();k++)
       {
         sum += (nextlayer.getGradients())[k]*nextlayer.getNeurons().get(k).get_Weight(j);

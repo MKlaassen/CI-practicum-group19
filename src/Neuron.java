@@ -1,11 +1,8 @@
-/**
- * 
+/**Class that is used to represent one neuron
+ * @author Matthijs Klaassen, Rick Molenaar, Daniël Brouwer
+ * @version: 11-09-2015
  */
 
-/**
- * @author Matthijs, Rick, Daniël
- * date: 11-09-2015
- */
 public class Neuron {
     
    private int amount_inputs;

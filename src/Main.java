@@ -1,3 +1,8 @@
+/**Class that is used to construct a neural network with the given parameters and train it
+ * @author Matthijs Klaassen, Rick Molenaar, Daniël Brouwer
+ * @version: 19-09-2015
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -5,14 +10,14 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
-public class main_ann {
+public class Main {
 	//parameters of the network	
 	private static int hiddenlayers_amount = 1;
 	private static int neuronsperlayer = 100;
 	private static int incoming_amount = 10;
 	private static int outgoing_amount = 7;
 	private static double alpha = 0.1;
-	private static int epochs = 400;	
+	private static int epochs = 1000;	
 
 	private static double[][] features = new double[7854][10];
 	private static int[] targets = new int[7854];
