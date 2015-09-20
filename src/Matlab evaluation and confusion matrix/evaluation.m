@@ -7,3 +7,7 @@ load validation_targets.mat;
 
 
 [C,order] = confusionmat(validationtargets,validationoutputs)
+
+imagesc(confusionmat(validationtargets,validationoutputs));
+colorbar;
+
