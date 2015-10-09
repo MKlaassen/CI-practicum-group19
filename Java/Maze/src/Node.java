@@ -30,13 +30,30 @@ public class Node {
 	
 	
 	
-	@Override
-	public String toString() {
-		return "Node [pheromone=" + pheromone + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Node [pheromone=" + pheromone + "]";
+//	}
 
 	public ArrayList<Node> getNeighbors() {
 		return neighbors;
+	}
+
+	@Override
+	public String toString() {
+		String res= "Node [pheromone=" + pheromone + ", dists=" + dists + ", coordinate="
+				+ coordinate+", neighbors=["; 
+		for (Node node : neighbors){
+			res+=node.getCoordinate()+", ";
+		}
+		if (this.neighbors.size()!=0)
+			res = res.substring(0,res.length()-2);
+		res += "]]";
+		return res;
+	}
+
+	public ArrayList<Integer> getDists() {
+		return dists;
 	}
 
 	public void setNeighbors(ArrayList<Node> neighbors) {
