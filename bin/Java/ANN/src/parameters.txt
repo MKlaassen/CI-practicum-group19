@@ -1,0 +1,8 @@
+hiddenlayers amount: 1
+neurons per layer: 100
+incoming amount: 10
+outgoing amount: 7
+alpha: 0.1
+epochs: 10
+sum of squared errors in test fold:1728.6765920678604
+sum of squared errors in validation fold:254.35226860332224

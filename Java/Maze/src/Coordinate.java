@@ -4,6 +4,14 @@
  */
 public class Coordinate {
 
+	public void setXcor(int xcor) {
+		this.xcor = xcor;
+	}
+
+	public void setYcor(int ycor) {
+		this.ycor = ycor;
+	}
+
 	private int xcor;
 	private int ycor;
 	

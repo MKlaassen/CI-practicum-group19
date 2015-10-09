@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -5,26 +6,26 @@ import java.util.Arrays;
  *
  */
 public class Maze {
-	
+
 	private int cols;
 	private int rows;
 	private int[][] layout;
-	
-	
+
+
 	public Maze(int[][] la, int col, int row) {
 		cols = col;
 		rows = row;
 		layout = la;
 	}
-	
+
 	public int getCols() {
 		return cols;
 	}
-	
+
 	public int getRows() {
 		return rows;
 	}
-	
+
 	public int[][] getLayout() {
 		return layout;
 	}
@@ -35,37 +36,27 @@ public class Maze {
 		for(int i = 0 ; i < rows ; i++) {
 			output = output + "\n";
 			for( int j = 0 ; j < cols ; j++) {
-				
+
 				output = output + layout[i][j];
 			}
 		}
-		
+
 		return output;
 	}
-	
-	public void instantiateNodes()
+
+	public void instantiateNodes(Coordinate start, Coordinate end)
 	{
-		int N;
-		int E;
-		int S;
-		int W;
+		ArrayList<Node> nodes = new ArrayList<Node>();
 		for(int i = 0 ; i < rows ; i++) {
 			for( int j = 0 ; j < cols ; j++) {
-				N=E=S=W=0;
-				if(layout[i][j]==1)
-				{
-					if(i<rows && layout[i+1][j]==1)
-						N=1;
-					if(i>0 && layout[i-1][j]==1)
-						S=1;
-					if(layout[i][j+1]==1)
-						E=1;
-					if(layout[i-1][j-1]==1)
-						W=1;
+				if (layout[i][j]==1){
+					nodes.add(new Node(new Coordinate(i,j)));
+					
 				}
 			}
+		}
 	}
-	}
+	
 	
 
 }
