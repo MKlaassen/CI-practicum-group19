@@ -1,8 +1,3 @@
-/**
- * 
- */
-package antcolony;
-
 import java.util.Arrays;
 
 /**

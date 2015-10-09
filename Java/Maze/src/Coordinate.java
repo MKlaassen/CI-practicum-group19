@@ -1,9 +1,4 @@
 /**
- * 
- */
-package antcolony;
-
-/**
  * @author mklaassen
  *
  */

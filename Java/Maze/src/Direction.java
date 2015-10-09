@@ -1,4 +1,3 @@
-package antcolony;
 
 /**
  * Enum representing all possible directions an Entity can move.
