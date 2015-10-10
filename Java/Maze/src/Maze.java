@@ -36,6 +36,15 @@ public class Maze {
 	public int[][] getLayout() {
 		return layout;
 	}
+	
+	public Node getNode(Coordinate coord)
+	{
+		for (Node node : nodes){
+			if(node.getCoordinate().equals(coord))
+				return node;
+		}
+		return null;
+	}
 
 	public String toString() {
 		String output = "Columns: "  + cols + " Rows: " + rows ;

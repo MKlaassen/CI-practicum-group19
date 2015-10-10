@@ -12,17 +12,21 @@ public class Ant {
 	private Maze maze;
 	private Coordinate currentpos;
 	private Coordinate destpos;
+	private Node currentnode;
+	private Node endnode;
 	
 	
-	
-	public Ant(Coordinate start,Coordinate destpos) {
-		this.startpos = start;
-		this.destpos = destpos;
+	public Ant(Maze maze, Coordinate start, Coordinate end) {
+		this.maze = maze;
+		this.currentpos = start;
+		this.destpos = end;
+		this.currentnode = maze.getNode(start);
+		this.endnode = maze.getNode(end);
 	}
-	
 	
 	public void move(Direction dir) {
 		
 	}
+	
 
 }
