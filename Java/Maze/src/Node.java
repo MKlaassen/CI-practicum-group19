@@ -13,7 +13,7 @@ public class Node {
 	private ArrayList<Node> neighbors;
 	private ArrayList<Integer> dists;
 	private Coordinate coordinate;
-	
+
 	public Node(Coordinate coord)
 	{
 		pheromone = 1;
