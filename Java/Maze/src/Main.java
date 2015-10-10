@@ -28,6 +28,7 @@ public class Main {
 //		}
 		System.out.println(maze.getNodes().size());
 		
+		System.out.println(maze.GraphtoString());
 	}
 
 }

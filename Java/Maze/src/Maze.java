@@ -99,7 +99,7 @@ public class Maze {
 		}
 	}
 
-	
+
 	/**Removes all 'in between' nodes and updates the neighbors which results in a graph representation of the maze consisting of crossings a begin and end node
 	 * 
 	 */
@@ -112,7 +112,7 @@ public class Maze {
 			if (!(node.getCoordinate().equals(start) || node.getCoordinate().equals(end)
 					|| node.getNeighbors().size()!=2)){
 				//System.out.println("Should be deleted "+node.getCoordinate());
-				
+
 				//Add the Node to the delete list, and update the neighbors of the nodes to the side of the deleted node
 				int totDist = node.getDists().get(0)+node.getDists().get(1);
 				Node nb1 = node.getNeighbors().get(0);
@@ -130,4 +130,43 @@ public class Maze {
 		}
 	}
 
+	
+	/**String representing the maze using Nodes, Walls and Passages
+	 * 
+	 */
+	public String GraphtoString() {
+		//Output the amount of Nodes
+		String output = "Nodes: "  + nodes.size();
+		boolean foundnode = false;
+		//Loop through the size of the matrix
+		for(int i = 0 ; i < rows ; i++) {
+			output = output + "\n";
+			for( int j = 0 ; j < cols ; j++) {
+				for (Node node : nodes){
+					if (node.getCoordinate().getX()==j && node.getCoordinate().getY()==i)
+					{
+						//If on location i,j there is a node -> add it to the string
+						output = output + "0";
+						foundnode = true;
+					}
+				}
+				//No Node is added, so a wall or passage has to be added
+				if(foundnode == false)
+				{
+					if(layout[i][j]==1)
+						//Add a passage
+						output = output + " ";
+					else	
+						//Add a wall
+						output = output + "#";
+				}
+				else
+				{
+					//Node is added so no wall or passage is added to the string
+					foundnode = false;
+				}
+			}
+		}
+		return output;
+	}
 }
