@@ -1,5 +1,12 @@
 import java.util.ArrayList;
 
+/** Class that represents a Node containing an amount of pheromone and neighbournodes with their distances to this node. 
+ * @author Rick Molenaar
+ * @author Matthijs Klaassen
+ * @author Daniël Brouwer
+ * @version 9 October 2015
+ */
+
 public class Node {
 
 	private float pheromone;
@@ -15,7 +22,7 @@ public class Node {
 		setCoordinate(coord);
 	}
 	
-	public void update(float evaporationConstant, float releasedPheromone)
+	public void updatePheromone(float evaporationConstant, float releasedPheromone)
 	{
 		pheromone = (1-evaporationConstant) * pheromone + releasedPheromone;
 	}
@@ -28,12 +35,6 @@ public class Node {
 		this.pheromone = pheromone;
 	}
 	
-	
-	
-//	@Override
-//	public String toString() {
-//		return "Node [pheromone=" + pheromone + "]";
-//	}
 
 	public ArrayList<Node> getNeighbors() {
 		return neighbors;

@@ -1,10 +1,10 @@
 import java.util.ArrayList;
-//import java.util.Arrays;
 
-/**
+/** Class that can construct a Maze from the given layout and transform it into a graph consiting of Nodes.
  * @author Rick Molenaar
- * @author mklaassen
- *
+ * @author Matthijs Klaassen
+ * @author Daniël Brouwer
+ * @version 9 October 2015
  */
 public class Maze {
 
@@ -14,15 +14,15 @@ public class Maze {
 	private ArrayList<Node> nodes;
 
 
-	public ArrayList<Node> getNodes() {
-		return nodes;
-	}
-
 	public Maze(int[][] la, int col, int row) {
 		cols = col;
 		rows = row;
 		layout = la;
 		nodes = new ArrayList<Node>();
+	}
+
+	public ArrayList<Node> getNodes() {
+		return nodes;
 	}
 
 	public int getCols() {
@@ -37,7 +37,6 @@ public class Maze {
 		return layout;
 	}
 
-	@Override
 	public String toString() {
 		String output = "Columns: "  + cols + " Rows: " + rows ;
 		for(int i = 0 ; i < rows ; i++) {
@@ -51,6 +50,9 @@ public class Maze {
 		return output;
 	}
 
+	/**Instantiates all the Nodes in the Maze
+	 * 
+	 */
 	public void instantiateNodes()
 	{
 		for(int i = 0 ; i < rows ; i++) {
@@ -58,10 +60,15 @@ public class Maze {
 				if (layout[i][j]==1){
 					Node newNode = new Node(new Coordinate(j,i));		//Yay for sign conventions
 					nodes.add(newNode);
+					//When node i,j is not on the bottom edge (i>0)
 					if (i>0){
+						//Check if there is a '1' above the current node 
 						if (layout[i-1][j]==1){
+							//for all Node from ArrayList nodes
 							for (Node node : nodes){
+								//get its coordinate
 								Coordinate c = node.getCoordinate();
+								//check if node is a neighbor of newNode and add each neighbor to both nodes
 								if (c.getX()==j && c.getY()==i-1){
 									node.addNeighbor(newNode, 1);
 									newNode.addNeighbor(node, 1);
@@ -70,11 +77,16 @@ public class Maze {
 							}
 						}
 					}
+					//When node i,j is not on the left edge (j>0) 
 					if (j>0){
+						//Check if there is a '1' left from the current node
 						if (layout[i][j-1]==1){
+							//for all Node from ArrayList nodes
 							for (Node node : nodes){
+								//get its coordinate
 								Coordinate c = node.getCoordinate();
-								if (c.getX()==j-1 && c.getY()==i){			//Fucking matrices
+								//check if node is a neighbor of newNode and add each neighbor to both nodes
+								if (c.getX()==j-1 && c.getY()==i){
 									node.addNeighbor(newNode, 1);
 									newNode.addNeighbor(node, 1);
 									break;
@@ -86,14 +98,22 @@ public class Maze {
 			}
 		}
 	}
+
 	
+	/**Removes all 'in between' nodes and updates the neighbors which results in a graph representation of the maze consisting of crossings a begin and end node
+	 * 
+	 */
 	public void cleanUpNodes(Coordinate start, Coordinate end){
 		ArrayList<Integer> toDelete = new ArrayList<Integer>();
+		//Loop through all the Node from ArrayList nodes
 		for (int i = 0; i<nodes.size(); i++){
 			Node node = nodes.get(i);
+			//If node i is not a start-node, not an end-node and it has only 2 neighbors -> it is a 'in between' node an it should be deleted
 			if (!(node.getCoordinate().equals(start) || node.getCoordinate().equals(end)
 					|| node.getNeighbors().size()!=2)){
-//				System.out.println("Should be deleted "+node.getCoordinate());
+				//System.out.println("Should be deleted "+node.getCoordinate());
+				
+				//Add the Node to the delete list, and update the neighbors of the nodes to the side of the deleted node
 				int totDist = node.getDists().get(0)+node.getDists().get(1);
 				Node nb1 = node.getNeighbors().get(0);
 				Node nb2 = node.getNeighbors().get(1);
@@ -105,6 +125,7 @@ public class Maze {
 			}
 		}
 		for (int i : toDelete){
+			//remove all 'in between' nodes
 			nodes.remove(i);
 		}
 	}

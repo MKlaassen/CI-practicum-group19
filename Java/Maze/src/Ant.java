@@ -1,7 +1,10 @@
-/**
- * @author mklaassen
- *
+/** Class that constructs an Ant.
+ * @author Rick Molenaar
+ * @author Matthijs Klaassen
+ * @author Daniël Brouwer
+ * @version 9 October 2015
  */
+
 public class Ant {
 	
 	private Coordinate startpos;

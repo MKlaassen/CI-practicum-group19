@@ -1,10 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 
-/**
+/** The main class
  * @author Rick Molenaar
- * @author mklaassen
- *
+ * @author Matthijs Klaassen
+ * @author Daniël Brouwer
+ * @version 9 October 2015
  */
 public class Main {
 

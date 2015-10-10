@@ -1,10 +1,16 @@
-/**
- * @author mklaassen
- *
+/** Class that constructs a Coordinate containing a x,y coordinate.
+ * @author Rick Molenaar
+ * @author Matthijs Klaassen
+ * @author Daniël Brouwer
+ * @version 9 October 2015
  */
 public class Coordinate {
 
-	@Override
+	public Coordinate(int x, int y) {
+		xcor = x;
+		ycor = y;
+	}
+	
 	public String toString() {
 		return "Coordinate [xcor=" + xcor + ", ycor=" + ycor + "]";
 	}
@@ -20,10 +26,7 @@ public class Coordinate {
 	private int xcor;
 	private int ycor;
 	
-	public Coordinate(int x, int y) {
-		xcor = x;
-		ycor = y;
-	}
+
 	
 	public int getX() {
 		return xcor;
