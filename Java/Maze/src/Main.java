@@ -33,10 +33,7 @@ public class Main {
 
 		System.out.println(maze.GraphtoString());
 
-		ArrayList<Node> neighbornodes = maze.getNode(new Coordinate(3,0)).getNeighbors();
-		for (Node node : neighbornodes){
-			System.out.println(node.getCoordinate().toString());
-		}
+	
 		
 	
 	}
