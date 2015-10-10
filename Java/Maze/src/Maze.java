@@ -79,8 +79,8 @@ public class Maze {
 								Coordinate c = node.getCoordinate();
 								//check if node is a neighbor of newNode and add each neighbor to both nodes
 								if (c.getX()==j && c.getY()==i-1){
-									node.addNeighbor(newNode, 1);
-									newNode.addNeighbor(node, 1);
+									node.addNeighbor(newNode, 1, 1.0f);
+									newNode.addNeighbor(node, 1, 1.0f);
 									break;
 								}
 							}
@@ -96,8 +96,8 @@ public class Maze {
 								Coordinate c = node.getCoordinate();
 								//check if node is a neighbor of newNode and add each neighbor to both nodes
 								if (c.getX()==j-1 && c.getY()==i){
-									node.addNeighbor(newNode, 1);
-									newNode.addNeighbor(node, 1);
+									node.addNeighbor(newNode, 1, 1.0f);
+									newNode.addNeighbor(node, 1, 1.0f);
 									break;
 								}
 							}
@@ -128,8 +128,8 @@ public class Maze {
 				Node nb2 = node.getNeighbors().get(1);
 				nb1.deleteNeighbor(node);
 				nb2.deleteNeighbor(node);
-				nb1.addNeighbor(nb2, totDist);
-				nb2.addNeighbor(nb1, totDist);
+				nb1.addNeighbor(nb2, totDist, 1.0f);
+				nb2.addNeighbor(nb1, totDist, 1.0f);
 				toDelete.add(0, i);						//Reverse order
 			}
 		}

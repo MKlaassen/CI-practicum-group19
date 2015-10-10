@@ -9,32 +9,35 @@ import java.util.ArrayList;
 
 public class Node {
 
-	private float pheromone;
 	private ArrayList<Node> neighbors;
 	private ArrayList<Integer> dists;
+	private ArrayList<Float> pheromone;
 	private Coordinate coordinate;
 
 	public Node(Coordinate coord)
 	{
-		pheromone = 1;
 		neighbors = new ArrayList<Node>();
 		dists = new ArrayList<Integer>();
+		pheromone = new ArrayList<Float>();
 		setCoordinate(coord);
 	}
-	
-	public void updatePheromone(float evaporationConstant, float releasedPheromone)
+
+
+	/** Update the path pheromone
+	 * @param neighbor_index index for selecting one of the paths from this Node to a neighbor 'neighbor_index'
+	 * @param evaporationConstant the evaporationconstant
+	 * @param releasedPheromone the amount of pheromone released by the ant
+	 */
+	public void updatePheromone(int neighbor_index, float evaporationConstant, float releasedPheromone)
 	{
-		pheromone = (1-evaporationConstant) * pheromone + releasedPheromone;
+		float new_pheromone = (1-evaporationConstant) * pheromone.get(neighbor_index) + releasedPheromone;
+		pheromone.set(neighbor_index,new_pheromone);	
 	}
 
-	public float getPheromone() {
+	public ArrayList<Float> getPheromone() {
 		return pheromone;
 	}
 
-	public void setPheromone(float pheromone) {
-		this.pheromone = pheromone;
-	}
-	
 
 	public ArrayList<Node> getNeighbors() {
 		return neighbors;
@@ -60,16 +63,18 @@ public class Node {
 	public void setNeighbors(ArrayList<Node> neighbors) {
 		this.neighbors = neighbors;
 	}
-	
-	public void addNeighbor(Node node, int dist){
+
+	public void addNeighbor(Node node, int dist, float pheromone){
 		this.neighbors.add(node);
 		this.dists.add(dist);
+		this.pheromone.add(pheromone);
 	}
-	
+
 	public void deleteNeighbor(Node node){
 		for (int i = 0; i<neighbors.size(); i++){
 			if (neighbors.get(i)==node){
 				dists.remove(i);
+				pheromone.remove(i);
 				neighbors.remove(i);
 				return;
 			}
@@ -83,5 +88,6 @@ public class Node {
 	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
 	}
+
 
 }

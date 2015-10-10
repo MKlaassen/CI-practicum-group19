@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
+
 
 /** The main class
  * @author Rick Molenaar
@@ -35,6 +37,8 @@ public class Main {
 		for (Node node : neighbornodes){
 			System.out.println(node.getCoordinate().toString());
 		}
+		
+	
 	}
 
 }
