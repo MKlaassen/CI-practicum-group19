@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,25 +19,26 @@ public class Main {
 	 * @throws FileNotFoundException 
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		File inputfile = new File("mazes\\maze.txt");
+		File inputfile = new File("mazes\\INSANE.txt");
 		Maze maze = Reader.input(inputfile);
 		System.out.println(maze.toString());
 		for (Node node : maze.getNodes()){
 			System.out.println(node);
 		}
 		maze.instantiateNodes();
-		System.out.println(maze.getNodes().size());
+//		System.out.println(maze.getNodes().size());
 		maze.cleanUpNodes(new Coordinate(0,0), new Coordinate(19,9));
-		//		for (Node node : maze.getNodes()){
-		//			System.out.println(node);
-		//		}
-		System.out.println(maze.getNodes().size());
+//		System.out.println(maze.getNodes().size());
 
 		System.out.println(maze.GraphtoString());
-
-	
+		PrintWriter writer = null;
 		
-	
+		try {
+			writer = new PrintWriter("mazeNodes.txt", "UTF-8");
+		} catch (FileNotFoundException e) {} 
+		catch (UnsupportedEncodingException e) {}
+		writer.println(maze.GraphtoString());
+		writer.flush();
 	}
 
 }

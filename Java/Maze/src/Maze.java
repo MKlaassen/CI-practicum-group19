@@ -155,7 +155,7 @@ public class Maze {
 					if (node.getCoordinate().getX()==j && node.getCoordinate().getY()==i)
 					{
 						//If on location i,j there is a node -> add it to the string
-						output = output + "0";
+						output = output + "X";
 						foundnode = true;
 					}
 				}
@@ -164,10 +164,10 @@ public class Maze {
 				{
 					if(layout[i][j]==1)
 						//Add a passage
-						output = output + " ";
+						output = output + "\u2022";
 					else	
 						//Add a wall
-						output = output + "#";
+						output = output + "\u2588";
 				}
 				else
 				{
