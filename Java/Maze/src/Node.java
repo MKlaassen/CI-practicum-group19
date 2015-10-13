@@ -45,7 +45,7 @@ public class Node {
 
 	@Override
 	public String toString() {
-		String res= "Node [pheromone=" + pheromone + ", dists=" + dists + ", coordinate="
+		String res= "Node [dists=" + dists + ", coordinate="
 				+ coordinate+", neighbors=["; 
 		for (Node node : neighbors){
 			res+=node.getCoordinate()+", ";
@@ -64,17 +64,16 @@ public class Node {
 		this.neighbors = neighbors;
 	}
 
-	public void addNeighbor(Node node, int dist, float pheromone){
+	public void addNeighbor(Node node, int dist){
 		this.neighbors.add(node);
 		this.dists.add(dist);
-		this.pheromone.add(pheromone);
+		this.pheromone.add(1f);
 	}
 
 	public void deleteNeighbor(Node node){
 		for (int i = 0; i<neighbors.size(); i++){
 			if (neighbors.get(i)==node){
 				dists.remove(i);
-				pheromone.remove(i);
 				neighbors.remove(i);
 				return;
 			}
@@ -88,6 +87,6 @@ public class Node {
 	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
 	}
-
+	
 
 }

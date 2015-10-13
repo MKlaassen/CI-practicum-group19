@@ -12,7 +12,7 @@ public class Maze {
 	private int rows;
 	private int[][] layout;
 	private ArrayList<Node> nodes;
-
+//	private ArrayList<Path> paths;
 
 	public Maze(int[][] la, int col, int row) {
 		cols = col;
@@ -79,8 +79,8 @@ public class Maze {
 								Coordinate c = node.getCoordinate();
 								//check if node is a neighbor of newNode and add each neighbor to both nodes
 								if (c.getX()==j && c.getY()==i-1){
-									node.addNeighbor(newNode, 1, 1.0f);
-									newNode.addNeighbor(node, 1, 1.0f);
+									node.addNeighbor(newNode, 1);
+									newNode.addNeighbor(node, 1);
 									break;
 								}
 							}
@@ -96,8 +96,8 @@ public class Maze {
 								Coordinate c = node.getCoordinate();
 								//check if node is a neighbor of newNode and add each neighbor to both nodes
 								if (c.getX()==j-1 && c.getY()==i){
-									node.addNeighbor(newNode, 1, 1.0f);
-									newNode.addNeighbor(node, 1, 1.0f);
+									node.addNeighbor(newNode, 1);
+									newNode.addNeighbor(node, 1);
 									break;
 								}
 							}
@@ -128,8 +128,8 @@ public class Maze {
 				Node nb2 = node.getNeighbors().get(1);
 				nb1.deleteNeighbor(node);
 				nb2.deleteNeighbor(node);
-				nb1.addNeighbor(nb2, totDist, 1.0f);
-				nb2.addNeighbor(nb1, totDist, 1.0f);
+				nb1.addNeighbor(nb2, totDist);
+				nb2.addNeighbor(nb1, totDist);
 				toDelete.add(0, i);						//Reverse order
 			}
 		}
@@ -178,4 +178,24 @@ public class Maze {
 		}
 		return output;
 	}
+	
+	public void createPaths(){
+		for (Node node : nodes){
+			for (int i = 0; i<node.getNeighbors().size(); i++){
+				Node nb = node.getNeighbors().get(i);
+				int d = node.getDists().get(i);
+//				Path p = new Path(node, nb, d, 1f, 0.5f);
+			}
+		}
+	}
+	
+//	public ArrayList<Path> getPaths(){
+//		return paths;
+//	}
+//	
+//	public ArrayList<Path> getPaths(Node nodes){
+//		for (Path path : paths){
+//			
+//		}
+//	}
 }

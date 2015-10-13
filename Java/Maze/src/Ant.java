@@ -19,9 +19,10 @@ public class Ant {
 	private Node endnode;
 	private float alpha;
 	private float beta;
+	private float evaporationConstant;
 
 
-	public Ant(Maze maze, Coordinate start, Coordinate end, float alpha, float beta) {
+	public Ant(Maze maze, Coordinate start, Coordinate end, float alpha, float beta, float ec) {
 		this.maze = maze;
 		this.currentpos = start;
 		this.destpos = end;
@@ -30,6 +31,7 @@ public class Ant {
 		this.alpha = alpha;
 		this.beta = beta;
 		this.distance = 0;
+		this.evaporationConstant = ec;
 	}
 
 	public void move(Direction dir) 
@@ -37,7 +39,7 @@ public class Ant {
 		float[] routeProbabilities = calculateRouteProbabilities(alpha,beta);
 		float[] sumProbabilities = new float[routeProbabilities.length];
 
-		//generate random number between 0.1 and 1
+		//generate random number between 0 and 1
 		Random rand = new Random();
 		int  randNum = (rand.nextInt(10) + 1)/10;
 		float sum;
@@ -52,16 +54,52 @@ public class Ant {
 			sumProbabilities[i] = sum;
 		}
 		
+		//sumProbabilities[i] = [0.3,0.6,1]
 		for(int i=0;i<routeProbabilities.length;i++)
 		{
-			if(randNum>sumProbabilities[i] && randNum<sumProbabilities[i+1])
+			if(i==0){
+				if (randNum>0 && randNum<sumProbabilities[i]){
+					travelToNode(this.currentnode.getNeighbors().get(i));
+				}
+			}
+			else if(randNum>sumProbabilities[i-1] && randNum<sumProbabilities[i])
 			{
-				//If True -> ANT needs to travel to Neighbor Node I
+				//If True -> ANT needs to travel to Neighbor Node I-1
 				//HIER MOET VERDER
+				travelToNode(this.currentnode.getNeighbors().get(i));
 			}
 			
 		}
 		
+		
+	}
+	
+	public void travelToNode(Node target){
+		int neighInd = -1;
+		for (int i = 0; i<this.currentnode.getNeighbors().size(); i++){
+			if (this.currentnode.getNeighbors().get(i)==target){
+				neighInd = i;
+				break;
+			}
+		}
+		this.currentnode.updatePheromone(neighInd, this.evaporationConstant, 
+				1000/this.currentnode.getDists().get(neighInd));
+		
+		this.currentnode = target;
+		
+		neighInd = -1;
+		for (int i = 0; i<this.currentnode.getNeighbors().size(); i++){
+			if (this.currentnode.getNeighbors().get(i)==target){
+				neighInd = i;
+				break;
+			}
+		}
+		this.currentnode.updatePheromone(neighInd, this.evaporationConstant, 
+				1000/this.currentnode.getDists().get(neighInd));
+		
+	}
+	
+	public void splat(){
 		
 	}
 	
