@@ -27,7 +27,7 @@ public class Reader {
 		
 		Maze maze = new Maze(input, columns, rows);
 		
-		
+		sc.close();
 		return maze; 
 	}
 

@@ -23,9 +23,10 @@ public class Ant {
 	private float evaporationConstant;
 	private ArrayList<Node> path;
 	private ArrayList<Integer> directions;
+	private int Q;
 
 
-	public Ant(Maze maze, Coordinate start, Coordinate end, float alpha, float beta, float ec) {
+	public Ant(Maze maze, Coordinate start, Coordinate end, float alpha, float beta, float ec, int Q) {
 		this.path = new ArrayList<>();
 		this.directions = new ArrayList<>();
 		this.maze = maze;
@@ -38,6 +39,7 @@ public class Ant {
 		this.distance = 0;
 		this.evaporationConstant = ec;
 		this.path.add(currentnode);
+		this.Q = Q;
 	}
 
 	public ArrayList<Node> getPath() {
@@ -133,24 +135,27 @@ public class Ant {
 				break;
 			}
 		}
+		//update pheromone of this path
 		this.currentnode.updatePheromone(neighInd, this.evaporationConstant, 
-				1000/this.currentnode.getDists().get(neighInd));
+				Q/this.currentnode.getDists().get(neighInd));
 
 		Node lastNode = this.currentnode;
 		this.currentnode = target;
 		this.path.add(currentnode);
 
-		neighInd = -1;
-		for (int i = 0; i<this.currentnode.getNeighbors().size(); i++){
-			//			System.out.println("target:"+target);
-			//			System.out.println("neigh:"+this.currentnode.getNeighbors().get(i));
-			if (this.currentnode.getNeighbors().get(i)==lastNode){
-				neighInd = i;
-				break;
-			}
-		}
-		this.currentnode.updatePheromone(neighInd, this.evaporationConstant, 
-				1/this.currentnode.getDists().get(neighInd));
+		//UNCOMMENT THE FOLLOWING CODE IF PATHPHEROMONES NEED TO BE UPDATED FROM BOTH WAYS
+		
+//		neighInd = -1;
+//		for (int i = 0; i<this.currentnode.getNeighbors().size(); i++){
+//						//System.out.println("target:"+target);
+//						//System.out.println("neigh:"+this.currentnode.getNeighbors().get(i));
+//			if (this.currentnode.getNeighbors().get(i)==lastNode){
+//				neighInd = i;
+//				break;
+//			}
+//		}
+//		this.currentnode.updatePheromone(neighInd, this.evaporationConstant, 
+//				1/this.currentnode.getDists().get(neighInd));
 
 	}
 

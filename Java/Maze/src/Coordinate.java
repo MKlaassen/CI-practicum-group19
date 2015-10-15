@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /** Class that constructs a Coordinate containing a x,y coordinate.
  * @author Rick Molenaar
  * @author Matthijs Klaassen
@@ -10,6 +14,27 @@ public class Coordinate {
 		xcor = x;
 		ycor = y;
 	}
+	
+	public static Coordinate[] read(File inputfile) throws FileNotFoundException{
+		Coordinate[] coordlist = new Coordinate[2];
+		Scanner sc = new Scanner(inputfile);
+		
+		int x = Integer.valueOf (sc.next().replace (",",""));
+		System.out.println("X: " + x);
+		int y = Integer.valueOf (sc.next().replace (";",""));;
+		System.out.println("Y: " + y);
+		coordlist[0] = new Coordinate(x,y);
+		x = Integer.valueOf (sc.next().replace (",",""));
+		System.out.println("X: " + x);
+		y = Integer.valueOf (sc.next().replace (";",""));
+		System.out.println("Y: " + y);
+		coordlist[1] = new Coordinate(x,y);
+		
+		sc.close();
+		return coordlist;
+		
+	}
+	
 	
 	public String toString() {
 		return "Coordinate [xcor=" + xcor + ", ycor=" + ycor + "]";
