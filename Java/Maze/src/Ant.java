@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Arrays;
 
 /** Class that constructs an Ant.
  * @author Rick Molenaar
@@ -34,47 +35,51 @@ public class Ant {
 		this.evaporationConstant = ec;
 	}
 
-	public void move(Direction dir) 
+	public void move() 
 	{
 		float[] routeProbabilities = calculateRouteProbabilities(alpha,beta);
 		float[] sumProbabilities = new float[routeProbabilities.length];
 
 		//generate random number between 0 and 1
 		Random rand = new Random();
-		int  randNum = (rand.nextInt(10) + 1)/10;
+		float  randNum = (rand.nextInt(10) + 1)/10.0f;
+		System.out.println("Randomnum: " + randNum);
 		float sum;
 		
 		for(int i=0;i<routeProbabilities.length;i++)
 		{
 			sum = 0;
-			for(int j=0;j<i;j++)
+			for(int j=0;j<=i;j++)
 			{
-				sum = sum + routeProbabilities[i];
+				sum = sum + routeProbabilities[j];
 			}
 			sumProbabilities[i] = sum;
 		}
-		
+		System.out.println(Arrays.toString(sumProbabilities));
 		//sumProbabilities[i] = [0.3,0.6,1]
 		for(int i=0;i<routeProbabilities.length;i++)
 		{
 			if(i==0){
 				if (randNum>0 && randNum<sumProbabilities[i]){
 					travelToNode(this.currentnode.getNeighbors().get(i));
+					break;
 				}
 			}
 			else if(randNum>sumProbabilities[i-1] && randNum<sumProbabilities[i])
 			{
-				//If True -> ANT needs to travel to Neighbor Node I-1
-				//HIER MOET VERDER
 				travelToNode(this.currentnode.getNeighbors().get(i));
+				break;
 			}
-			
+		}
+		if (randNum>=sumProbabilities[sumProbabilities.length-1]){
+			travelToNode(this.currentnode.getNeighbors().get(this.currentnode.getNeighbors().size()-1));
 		}
 		
 		
 	}
 	
 	public void travelToNode(Node target){
+		System.out.println("Travelling to node: "+target.getCoordinate());
 		int neighInd = -1;
 		for (int i = 0; i<this.currentnode.getNeighbors().size(); i++){
 			if (this.currentnode.getNeighbors().get(i)==target){
@@ -85,17 +90,20 @@ public class Ant {
 		this.currentnode.updatePheromone(neighInd, this.evaporationConstant, 
 				1000/this.currentnode.getDists().get(neighInd));
 		
+		Node lastNode = this.currentnode;
 		this.currentnode = target;
 		
 		neighInd = -1;
 		for (int i = 0; i<this.currentnode.getNeighbors().size(); i++){
-			if (this.currentnode.getNeighbors().get(i)==target){
+//			System.out.println("target:"+target);
+//			System.out.println("neigh:"+this.currentnode.getNeighbors().get(i));
+			if (this.currentnode.getNeighbors().get(i)==lastNode){
 				neighInd = i;
 				break;
 			}
 		}
 		this.currentnode.updatePheromone(neighInd, this.evaporationConstant, 
-				1000/this.currentnode.getDists().get(neighInd));
+				1/this.currentnode.getDists().get(neighInd));
 		
 	}
 	
@@ -115,7 +123,7 @@ public class Ant {
 
 		for(int i=0;i<reachableNodes.size();i++)
 		{
-			LengthPheromoneProduct[i] = (float) (Math.pow(pheromoneNodes.get(i),alpha)*Math.pow((1/distanceNodes.get(i)),beta));
+			LengthPheromoneProduct[i] = (float) (Math.pow(pheromoneNodes.get(i),alpha)*Math.pow((1.0f/distanceNodes.get(i)),beta));
 			SumOfLengthPheromoneProduct = SumOfLengthPheromoneProduct + LengthPheromoneProduct[i];
 		}
 		for(int i=0;i<reachableNodes.size();i++)
@@ -124,4 +132,9 @@ public class Ant {
 		}	
 		return routeProbabilities;
 	}
+
+	public Node getCurrentnode() {
+		return currentnode;
+	}
+	
 }
