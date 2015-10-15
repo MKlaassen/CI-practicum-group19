@@ -12,7 +12,7 @@ public class Maze {
 	private int rows;
 	private int[][] layout;
 	private ArrayList<Node> nodes;
-//	private ArrayList<Path> paths;
+	//	private ArrayList<Path> paths;
 
 	public Maze(int[][] la, int col, int row) {
 		cols = col;
@@ -36,7 +36,7 @@ public class Maze {
 	public int[][] getLayout() {
 		return layout;
 	}
-	
+
 	public Node getNode(Coordinate coord)
 	{
 		for (Node node : nodes){
@@ -120,17 +120,19 @@ public class Maze {
 			//If node i is not a start-node, not an end-node and it has only 2 neighbors -> it is a 'in between' node an it should be deleted
 			if (!(node.getCoordinate().equals(start) || node.getCoordinate().equals(end)
 					|| node.getNeighbors().size()!=2)){
-				//System.out.println("Should be deleted "+node.getCoordinate());
-
-				//Add the Node to the delete list, and update the neighbors of the nodes to the side of the deleted node
+					//System.out.println("Should be deleted "+node.getCoordinate());
+	
+					//Add the Node to the delete list, and update the neighbors of the nodes to the side of the deleted node
 				int totDist = node.getDists().get(0)+node.getDists().get(1);
 				Node nb1 = node.getNeighbors().get(0);
 				Node nb2 = node.getNeighbors().get(1);
-				nb1.deleteNeighbor(node);
-				nb2.deleteNeighbor(node);
-				nb1.addNeighbor(nb2, totDist);
-				nb2.addNeighbor(nb1, totDist);
-				toDelete.add(0, i);						//Reverse order
+				if (nb1.getCoordinate().getX()==nb2.getCoordinate().getX() || nb1.getCoordinate().getY()==nb2.getCoordinate().getY()){
+					nb1.deleteNeighbor(node);
+					nb2.deleteNeighbor(node);
+					nb1.addNeighbor(nb2, totDist);
+					nb2.addNeighbor(nb1, totDist);
+					toDelete.add(0, i);						//Reverse order
+				}
 			}
 		}
 		for (int i : toDelete){
@@ -139,7 +141,7 @@ public class Maze {
 		}
 	}
 
-	
+
 	/**String representing the maze using Nodes, Walls and Passages
 	 * 
 	 */
@@ -178,24 +180,71 @@ public class Maze {
 		}
 		return output;
 	}
-	
+
 	public void createPaths(){
 		for (Node node : nodes){
 			for (int i = 0; i<node.getNeighbors().size(); i++){
 				Node nb = node.getNeighbors().get(i);
 				int d = node.getDists().get(i);
-//				Path p = new Path(node, nb, d, 1f, 0.5f);
+				//				Path p = new Path(node, nb, d, 1f, 0.5f);
 			}
 		}
 	}
-	
-//	public ArrayList<Path> getPaths(){
-//		return paths;
-//	}
-//	
-//	public ArrayList<Path> getPaths(Node nodes){
-//		for (Path path : paths){
-//			
-//		}
-//	}
+
+
+	/**String representing the maze using Nodes, Walls and Passages
+	 * 
+	 */
+	public String pathGraphtoString(ArrayList<Node> visitedlist) {
+		//Output the amount of Nodes
+		String output = "Nodes: "  + nodes.size();
+		boolean foundnode = false;
+		//Loop through the size of the matrix
+		for(int i = 0 ; i < rows ; i++) {
+			output = output + "\n";
+			for( int j = 0 ; j < cols ; j++) {
+				for (Node node : nodes){
+					if (node.getCoordinate().getX()==j && node.getCoordinate().getY()==i)
+					{
+						//If on location i,j there is a node -> add it to the string
+						if(visitedlist.contains(node))
+						{
+							//If ant visited output V
+							output = output + "V";
+						}else{
+							//If ant didn't visit output X
+							output = output + "X";
+						}
+						foundnode = true;
+					}
+				}
+				//No Node is added, so a wall or passage has to be added
+				if(foundnode == false)
+				{
+					if(layout[i][j]==1)
+						//Add a passage
+						output = output + "\u2022";
+					else	
+						//Add a wall
+						output = output + "\u2588";
+				}
+				else
+				{
+					//Node is added so no wall or passage is added to the string
+					foundnode = false;
+				}
+			}
+		}
+		return output;
+	}
+
+	//	public ArrayList<Path> getPaths(){
+	//		return paths;
+	//	}
+	//	
+	//	public ArrayList<Path> getPaths(Node nodes){
+	//		for (Path path : paths){
+	//			
+	//		}
+	//	}
 }

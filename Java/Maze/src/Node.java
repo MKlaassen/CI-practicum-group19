@@ -58,6 +58,8 @@ public class Node {
 	{
 		float new_pheromone = (1-evaporationConstant) * pheromone.get(neighbor_index) + releasedPheromone;
 		pheromone.set(neighbor_index,new_pheromone);	
+		
+		//pheremone fixen neighbours niet updaten!!!!!!!!
 	}
 
 	public ArrayList<Float> getPheromone() {

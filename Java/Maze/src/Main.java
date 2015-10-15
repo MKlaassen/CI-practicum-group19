@@ -16,16 +16,17 @@ public class Main {
 
 	private static Coordinate startcoord = new Coordinate(0,0);
 	private static Coordinate endcoord = new Coordinate(19,9);
+	//private static Coordinate endcoord = new Coordinate(20,9);
 	private static float evaporationConstant = 0.1f;
 	private static float alpha = 1;
-	private static float beta = 0.1f;
+	private static float beta = 0.5f;
 
 	/**
 	 * @param args
 	 * @throws FileNotFoundException 
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		File inputfile = new File("mazes\\INSANE.txt");
+		File inputfile = new File("mazes\\maze.txt");
 		Maze maze = Reader.input(inputfile);
 		System.out.println(maze.toString());
 		for (Node node : maze.getNodes()){
@@ -48,29 +49,66 @@ public class Main {
 
 
 		//Spawning Ants
-		Ant ant = new Ant(maze, startcoord, endcoord, alpha, beta, evaporationConstant);
-		
+		Ant[] antarray = new Ant[100];
+		for(int i=0;i<antarray.length;i++)
+		{
+			antarray[i] = new Ant(maze, startcoord, endcoord, alpha, beta, evaporationConstant);
+		}
 		//move the ant
 		int steps = 0;
-		while(true)
-		{
-			ant.move();
-			steps++;
-			
-			System.out.println("Steps: " + steps);
-			System.out.println(ant.getCurrentnode().getCoordinate().toString());
-			if(ant.getCurrentnode().equals(maze.getNode(endcoord)))
+		Ant winnerAnt;
+		int winners = 0;
+		Outer:
+			while(true)
 			{
-				break;
+				steps++;
+				for(int i=0;i<antarray.length;i++){
+					antarray[i].move();
+					
+					System.out.print("Ant: " + i + " Current node: " + antarray[i].getCurrentnode().getCoordinate().toString()+"\r");
+					if(antarray[i].getCurrentnode().equals(maze.getNode(endcoord)))
+					{
+						System.out.println("Ant: " + i +  "reached the destination (winner no. "+winners+")");
+						winners++;
+						if (winners>=10){
+							winnerAnt = antarray[i];
+							
+							break Outer;
+						}
+						
+					}
+					//			if (steps>10){
+					//				break;
+					//			}
+				}
+				if (steps%100==0){
+					System.out.println("Steps: " + steps);
+				}
 			}
-//			if (steps>10){
-//				break;
-//			}
-		}
-		System.out.println(steps);
+
+		System.out.println(winnerAnt.getDirections().toString().replace(", ", ";").replace("[","").replace("]", ""));
+
+		try {
+			writer = new PrintWriter("mazeNodesVisited.txt", "UTF-8");
+		} catch (FileNotFoundException e) {} 
+		catch (UnsupportedEncodingException e) {}
+		writer.println(maze.pathGraphtoString(winnerAnt.getPath()));
+		writer.flush();
+
+
+
+		try {
+			writer = new PrintWriter("directions.txt", "UTF-8");
+		} catch (FileNotFoundException e) {} 
+		catch (UnsupportedEncodingException e) {}
+		writer.println(winnerAnt.getDirections().size() + ";");
+		writer.println(startcoord.getX() + ", " + startcoord.getY() + ";");
+		writer.println(winnerAnt.getDirections().toString().replace(", ", ";").replace("[","").replace("]", ";"));
+		writer.flush();
+
+		System.out.println("done");
 
 	}
-
 
 }
 
