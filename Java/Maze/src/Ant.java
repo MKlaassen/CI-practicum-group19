@@ -16,13 +16,13 @@ public class Ant {
 	private Maze maze;
 	private Coordinate currentpos;
 	private Coordinate destpos;
-	private Node currentnode;
+	protected Node currentnode;
 	private Node endnode;
-	private float alpha;
-	private float beta;
+	protected float alpha;
+	protected float beta;
 	private float evaporationConstant;
 	private ArrayList<Node> path;
-	private ArrayList<Integer> directions;
+	protected ArrayList<Integer> directions;
 	private int Q;
 
 
@@ -171,15 +171,19 @@ public class Ant {
 				if (this.path.get(i).getNeighbors().get(j)==this.path.get(i+1)){
 					this.path.get(i).updatePheromone(j, 0, 
 							(this.path.get(i).getDists().get(j)*(float)Q)/distance);
-				}else{
-					this.path.get(i).updatePheromone(j, this.evaporationConstant, 
-							0);
 				}
+				//else{
+				//	this.path.get(i).updatePheromone(j, this.evaporationConstant, 
+				//			0);
+				//}
 			}
 			//			System.out.println("i:"+i+", j:"+neighInd);
 			//this.path.get(i).updatePheromone(neighInd, this.evaporationConstant, 
 			//				(this.path.get(i).getDists().get(neighInd)*Q)/distance);
 		}
+		
+		//evaporate all paths with the evaporationconstant
+		maze.evaporateAllPaths(evaporationConstant);
 	}
 
 

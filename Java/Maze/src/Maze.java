@@ -238,6 +238,19 @@ public class Maze {
 		return output;
 	}
 
+	public void evaporateAllPaths(float evaporationConstant)
+	{
+		for (Node node : nodes)
+		{
+			for(int i=0;i<node.getPheromone().size();i++)
+			{
+				node.updatePheromone(i, evaporationConstant, 0);
+			}
+			
+		}
+		
+	}
+	
 	//	public ArrayList<Path> getPaths(){
 	//		return paths;
 	//	}

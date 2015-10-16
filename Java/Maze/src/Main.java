@@ -20,7 +20,7 @@ public class Main {
 	private static float alpha = 1;
 	private static float beta = 0.5f;
 	private static int Q; //estimate of the length of the route
-	private static int amountOfAnts = 100; //amount of ants released in the maze
+	private static int amountOfAnts = 10; //amount of ants released in the maze
 //	private static int amountOfWinners = 1; //amount of ants that need to succesfully reach the end
 	private static String mazeDifficulty;
 
