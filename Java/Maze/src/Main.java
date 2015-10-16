@@ -20,8 +20,8 @@ public class Main {
 	private static float alpha = 1;
 	private static float beta = 0.5f;
 	private static int Q; //estimate of the length of the route
-	private static int amountOfAnts = 1; //amount of ants released in the maze
-	private static int amountOfWinners = 1; //amount of ants that need to succesfully reach the end
+	private static int amountOfAnts = 100; //amount of ants released in the maze
+//	private static int amountOfWinners = 1; //amount of ants that need to succesfully reach the end
 	private static String mazeDifficulty;
 
 
@@ -73,8 +73,8 @@ public class Main {
 
 		//estimation of the route length.
 		Q = Math.abs(startcoord.getX()-endcoord.getX()) + Math.abs(startcoord.getY()-endcoord.getY());
-		
-		
+
+
 		System.out.println(maze.toString());
 		for (Node node : maze.getNodes()){
 			System.out.println(node);
@@ -102,7 +102,7 @@ public class Main {
 		//Instantiate a controlAnt for use later
 		Ant controlAnt = new Ant(maze, startcoord, endcoord, alpha, beta, evaporationConstant,Q);
 
-		
+
 		for(int i=0;i<antarray.length;i++)
 		{
 			antarray[i] = new Ant(maze, startcoord, endcoord, alpha, beta, evaporationConstant,Q);
@@ -112,35 +112,83 @@ public class Main {
 		Ant winnerAnt;
 		int winners = 0;
 
-		//move the Ants
-		Outer:
+		for(int i=0;i<antarray.length;i++)
+		{
 			while(true)
 			{
 				iteration++;
-				for(int i=0;i<antarray.length;i++){
-					if(deadAnts[i]==false)
-					{
-						antarray[i].move();													
-						System.out.print("Iteration: " + iteration + " Ant: " + i + " Current node: " + antarray[i].getCurrentnode().getCoordinate().toString() + "\r");
-						if(antarray[i].getCurrentnode().equals(maze.getNode(endcoord)))
-						{
-							System.out.println();
-							System.out.println("Ant: " + i +  " reached the destination (winner no. "+winners+")");
-							deadAnts[i]=true; //kill the Ant that reached the end destination
-							antarray[i].splat();
-							winners++;
-							if (winners>=amountOfWinners){
-								winnerAnt = antarray[i];
-								break Outer;
-							}
-						}
-					}
+				antarray[i].move();													
+				System.out.print("Iteration: " + iteration + " Ant: " + i + " Current node: " + antarray[i].getCurrentnode().getCoordinate().toString() + "\r");
+				if(antarray[i].getCurrentnode().equals(maze.getNode(endcoord)))
+				{
+					System.out.println();
+					System.out.println("Ant: " + i +  " reached the destination (winner no. "+winners+")");
+					winners++;
+					//Update pheromone of path and kill the ant
+					antarray[i].splat();
+					
+					break;
 				}
+			}
+		}
+		
+		controlAnt = antarray[antarray.length-1];
+
+		//UNCOMMENT FOLLOWING TO SHOW ALL THE LEAVING PATHS'S PHEROMONE FOR ALL NODE
+		for(int i=0;i<(maze.getNodes().size());i++)
+		{
+			System.out.println("Node: " + i + " Pheromone of leaving paths: " + maze.getNodes().get(i).getPheromone().toString());
+		}
+
+		try {
+			writer = new PrintWriter("mazeNodesVisited.txt", "UTF-8");
+		} catch (FileNotFoundException e) {} 
+		catch (UnsupportedEncodingException e) {}
+		writer.println(maze.pathGraphtoString(controlAnt.getPath()));
+		writer.flush();
+
+
+		try {
+			writer = new PrintWriter("directions.txt", "UTF-8");
+		} catch (FileNotFoundException e) {} 
+		catch (UnsupportedEncodingException e) {}
+		writer.println(controlAnt.getDirections().size() + ";");
+		writer.println(startcoord.getX() + ", " + startcoord.getY() + ";");
+		writer.println(controlAnt.getDirections().toString().replace(", ", ";").replace("[","").replace("]", ";"));
+		writer.flush();
+
+
+
+
+//		//move the Ants
+//		Outer:
+//			while(true)
+//			{
+//				iteration++;
+//				for(int i=0;i<antarray.length;i++){
+//					if(deadAnts[i]==false)
+//					{
+//						antarray[i].move();													
+//						System.out.print("Iteration: " + iteration + " Ant: " + i + " Current node: " + antarray[i].getCurrentnode().getCoordinate().toString() + "\r");
+//						if(antarray[i].getCurrentnode().equals(maze.getNode(endcoord)))
+//						{
+//							System.out.println();
+//							System.out.println("Ant: " + i +  " reached the destination (winner no. "+winners+")");
+//							deadAnts[i]=true; //kill the Ant that reached the end destination
+//							antarray[i].splat();
+//							winners++;
+//							if (winners>=amountOfWinners){
+//								winnerAnt = antarray[i];
+//								break Outer;
+//							}
+//						}
+//					}
+//				}
 				//if(iteration==20)
 				//{
 				//	break;
 				//}
-			}
+//	}
 
 		//UNCOMMENT FOLLOWING TO SHOW ALL THE LEAVING PATHS'S PHEROMONE FOR ALL NODE
 		//		for(int i=0;i<(maze.getNodes().size());i++)
@@ -165,28 +213,6 @@ public class Main {
 
 		//System.out.println(controlAnt.getDirections().toString().replace(", ", ";").replace("[","").replace("]", ""));
 
-		//UNCOMMENT FOLLOWING TO SHOW ALL THE LEAVING PATHS'S PHEROMONE FOR ALL NODE
-		for(int i=0;i<(maze.getNodes().size());i++)
-		{
-			System.out.println("Node: " + i + " Pheromone of leaving paths: " + maze.getNodes().get(i).getPheromone().toString());
-		}
-
-		try {
-			writer = new PrintWriter("mazeNodesVisited.txt", "UTF-8");
-		} catch (FileNotFoundException e) {} 
-		catch (UnsupportedEncodingException e) {}
-		writer.println(maze.pathGraphtoString(controlAnt.getPath()));
-		writer.flush();
-
-
-		try {
-			writer = new PrintWriter("directions.txt", "UTF-8");
-		} catch (FileNotFoundException e) {} 
-		catch (UnsupportedEncodingException e) {}
-		writer.println(controlAnt.getDirections().size() + ";");
-		writer.println(startcoord.getX() + ", " + startcoord.getY() + ";");
-		writer.println(controlAnt.getDirections().toString().replace(", ", ";").replace("[","").replace("]", ";"));
-		writer.flush();
 
 		System.out.println("done");
 
