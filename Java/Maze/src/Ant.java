@@ -21,7 +21,7 @@ public class Ant {
 	protected float alpha;
 	protected float beta;
 	private float evaporationConstant;
-	private ArrayList<Node> path;
+	protected ArrayList<Node> path;
 	protected ArrayList<Integer> directions;
 	private int Q;
 

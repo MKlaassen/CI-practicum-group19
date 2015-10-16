@@ -16,11 +16,11 @@ import java.util.Scanner;
 public class Main {
 	private static Coordinate startcoord;
 	private static Coordinate endcoord;
-	private static float evaporationConstant = 0.1f;
+	private static float evaporationConstant = 0.5f;
 	private static float alpha = 1;
 	private static float beta = 0.5f;
 	private static int Q; //estimate of the length of the route
-	private static int amountOfAnts = 10; //amount of ants released in the maze
+	private static int amountOfAnts = 25; //amount of ants released in the maze
 //	private static int amountOfWinners = 1; //amount of ants that need to succesfully reach the end
 	private static String mazeDifficulty;
 
@@ -100,7 +100,7 @@ public class Main {
 		boolean[] deadAnts = new boolean[amountOfAnts];
 
 		//Instantiate a controlAnt for use later
-		Ant controlAnt = new Ant(maze, startcoord, endcoord, alpha, beta, evaporationConstant,Q);
+		Ant controlAnt = new SuperAnt(maze, startcoord, endcoord, alpha, beta, evaporationConstant,Q);
 
 
 		for(int i=0;i<antarray.length;i++)
@@ -109,7 +109,6 @@ public class Main {
 		}
 
 		int iteration = 0;
-		Ant winnerAnt;
 		int winners = 0;
 
 		for(int i=0;i<antarray.length;i++)
@@ -132,13 +131,35 @@ public class Main {
 			}
 		}
 		
-		controlAnt = antarray[antarray.length-1];
-
-		//UNCOMMENT FOLLOWING TO SHOW ALL THE LEAVING PATHS'S PHEROMONE FOR ALL NODE
-		for(int i=0;i<(maze.getNodes().size());i++)
+		System.out.print("Releasing the Super Ant :D");
+		
+		while(true)
 		{
-			System.out.println("Node: " + i + " Pheromone of leaving paths: " + maze.getNodes().get(i).getPheromone().toString());
+			iteration++;
+			((SuperAnt)controlAnt).move();													
+			System.out.print("Iteration: " + iteration + " SuperAnt: " + " Current node: " + controlAnt.getCurrentnode().getCoordinate().toString() + "\r");
+			if(controlAnt.getCurrentnode().equals(maze.getNode(endcoord)))
+			{
+				System.out.println();
+				System.out.println("SuperAnt reached the destination");
+				//Update pheromone of path and kill the ant
+				controlAnt.splat();
+				
+				break;
+			}
+			if(((SuperAnt)controlAnt).isStuck())
+			{
+				System.out.println("Becouse SuperAnt is stuck, the path of the last normal Ant will be stored");
+				controlAnt = antarray[antarray.length-1];
+				break;
+			}
 		}
+		
+		//UNCOMMENT FOLLOWING TO SHOW ALL THE LEAVING PATHS'S PHEROMONE FOR ALL NODE
+		//for(int i=0;i<(maze.getNodes().size());i++)
+		//{
+		//	System.out.println("Node: " + i + " Pheromone of leaving paths: " + maze.getNodes().get(i).getPheromone().toString());
+		//}
 
 		try {
 			writer = new PrintWriter("mazeNodesVisited.txt", "UTF-8");
