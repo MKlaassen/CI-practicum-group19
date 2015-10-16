@@ -53,9 +53,9 @@ public class Ant {
 
 		//generate random number between 0 and 1
 		Random rand = new Random();
-//		float  randNum = (rand.nextInt(10) + 1)/10.0f;
+		//		float  randNum = (rand.nextInt(10) + 1)/10.0f;
 		float randNum = rand.nextFloat();
-//		System.out.println("Randomnum: " + randNum);
+		//		System.out.println("Randomnum: " + randNum);
 		float sum;
 
 		for(int i=0;i<routeProbabilities.length;i++)
@@ -67,7 +67,7 @@ public class Ant {
 			}
 			sumProbabilities[i] = sum;
 		}
-//		System.out.println(Arrays.toString(sumProbabilities));
+		//		System.out.println(Arrays.toString(sumProbabilities));
 		//sumProbabilities[i] = [0.3,0.6,1]
 		for(int i=0;i<routeProbabilities.length;i++)
 		{
@@ -127,7 +127,7 @@ public class Ant {
 
 
 	public void travelToNode(Node target){
-//		System.out.println("Travelling to node: "+target.getCoordinate());
+		//		System.out.println("Travelling to node: "+target.getCoordinate());
 		int neighInd = -1;
 		for (int i = 0; i<this.currentnode.getNeighbors().size(); i++){
 			if (this.currentnode.getNeighbors().get(i)==target){
@@ -136,32 +136,52 @@ public class Ant {
 			}
 		}
 		//update pheromone of this path
-		this.currentnode.updatePheromone(neighInd, this.evaporationConstant, 
-				Q/this.currentnode.getDists().get(neighInd));
+		//this.currentnode.updatePheromone(neighInd, this.evaporationConstant, 
+		//		Q/this.currentnode.getDists().get(neighInd));
 
 		Node lastNode = this.currentnode;
 		this.currentnode = target;
 		this.path.add(currentnode);
+		this.distance = distance + lastNode.getDists().get(neighInd);
 
 		//UNCOMMENT THE FOLLOWING CODE IF PATHPHEROMONES NEED TO BE UPDATED FROM BOTH WAYS
-		
-//		neighInd = -1;
-//		for (int i = 0; i<this.currentnode.getNeighbors().size(); i++){
-//						//System.out.println("target:"+target);
-//						//System.out.println("neigh:"+this.currentnode.getNeighbors().get(i));
-//			if (this.currentnode.getNeighbors().get(i)==lastNode){
-//				neighInd = i;
-//				break;
-//			}
-//		}
-//		this.currentnode.updatePheromone(neighInd, this.evaporationConstant, 
-//				1/this.currentnode.getDists().get(neighInd));
+
+		//		neighInd = -1;
+		//		for (int i = 0; i<this.currentnode.getNeighbors().size(); i++){
+		//						//System.out.println("target:"+target);
+		//						//System.out.println("neigh:"+this.currentnode.getNeighbors().get(i));
+		//			if (this.currentnode.getNeighbors().get(i)==lastNode){
+		//				neighInd = i;
+		//				break;
+		//			}
+		//		}
+		//		this.currentnode.updatePheromone(neighInd, this.evaporationConstant, 
+		//				1/this.currentnode.getDists().get(neighInd));
 
 	}
 
-	public void splat(){
+	public void splat()
+	{
+		int neighInd = -1;
 
+		for (int i=0;i<this.path.size()-1;i++)
+		{
+			for (int j = 0; j<this.path.get(i).getNeighbors().size(); j++){
+				//System.out.println("i:"+i+"length:"+this.path.size());
+				if (this.path.get(i).getNeighbors().get(j)==this.path.get(i+1)){
+					this.path.get(i).updatePheromone(j, 0, 
+							(this.path.get(i).getDists().get(j)*(float)Q)/distance);
+				}else{
+					this.path.get(i).updatePheromone(j, this.evaporationConstant, 
+							0);
+				}
+			}
+			//			System.out.println("i:"+i+", j:"+neighInd);
+			//this.path.get(i).updatePheromone(neighInd, this.evaporationConstant, 
+			//				(this.path.get(i).getDists().get(neighInd)*Q)/distance);
+		}
 	}
+
 
 	public float[] calculateRouteProbabilities(float alpha, float beta)
 	{

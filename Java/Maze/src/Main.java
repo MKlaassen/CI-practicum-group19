@@ -20,8 +20,8 @@ public class Main {
 	private static float alpha = 1;
 	private static float beta = 0.5f;
 	private static int Q; //estimate of the length of the route
-	private static int amountOfAnts = 1000; //amount of ants released in the maze
-	private static int amountOfWinners = 10; //amount of ants that need to succesfully reach the end
+	private static int amountOfAnts = 1; //amount of ants released in the maze
+	private static int amountOfWinners = 1; //amount of ants that need to succesfully reach the end
 	private static String mazeDifficulty;
 
 
@@ -73,7 +73,8 @@ public class Main {
 
 		//estimation of the route length.
 		Q = Math.abs(startcoord.getX()-endcoord.getX()) + Math.abs(startcoord.getY()-endcoord.getY());
-
+		
+		
 		System.out.println(maze.toString());
 		for (Node node : maze.getNodes()){
 			System.out.println(node);
@@ -101,6 +102,7 @@ public class Main {
 		//Instantiate a controlAnt for use later
 		Ant controlAnt = new Ant(maze, startcoord, endcoord, alpha, beta, evaporationConstant,Q);
 
+		
 		for(int i=0;i<antarray.length;i++)
 		{
 			antarray[i] = new Ant(maze, startcoord, endcoord, alpha, beta, evaporationConstant,Q);
@@ -125,6 +127,7 @@ public class Main {
 							System.out.println();
 							System.out.println("Ant: " + i +  " reached the destination (winner no. "+winners+")");
 							deadAnts[i]=true; //kill the Ant that reached the end destination
+							antarray[i].splat();
 							winners++;
 							if (winners>=amountOfWinners){
 								winnerAnt = antarray[i];
@@ -146,15 +149,18 @@ public class Main {
 		//		}
 
 		//When pheromone is updated succesfully in the previous loop -> release another ant. Theoretically it should pick the best path in one go
-		while(true)
-		{
-			controlAnt.move();
-			if(controlAnt.getCurrentnode().equals(maze.getNode(endcoord)))
-			{
-				System.out.println("The ControlAnt reached the destination");
-				break;
-			}
-		}
+		//while(true)
+		//{
+		//	controlAnt.move();
+		//	System.out.print("ControlAnt is moving." + "\r");
+		//	System.out.print("ControlAnt is moving.." + "\r");
+		//	System.out.print("ControlAnt is moving..." + "\r");
+		//	if(controlAnt.getCurrentnode().equals(maze.getNode(endcoord)))
+		//	{
+		//		System.out.println("The ControlAnt reached the destination");
+		//		break;
+		//	}
+		//}
 
 
 		//System.out.println(controlAnt.getDirections().toString().replace(", ", ";").replace("[","").replace("]", ""));

@@ -39,6 +39,8 @@ public class Node {
 	private ArrayList<Integer> dists;
 	private ArrayList<Float> pheromone;
 	private Coordinate coordinate;
+	private static int Nodenumber;
+	private int id;
 
 	public Node(Coordinate coord)
 	{
@@ -46,6 +48,8 @@ public class Node {
 		dists = new ArrayList<Integer>();
 		pheromone = new ArrayList<Float>();
 		setCoordinate(coord);
+		this.id = Nodenumber;
+		Nodenumber++;
 	}
 
 
@@ -92,9 +96,11 @@ public class Node {
 	}
 
 	public void addNeighbor(Node node, int dist){
+//		System.out.println("Adding neighbor "+node.id+" to node " +this.id );
 		this.neighbors.add(node);
 		this.dists.add(dist);
 		this.pheromone.add(1.0f);
+//		System.out.println(pheromone.size());
 	}
 
 	public void deleteNeighbor(Node node){
@@ -102,6 +108,7 @@ public class Node {
 			if (neighbors.get(i)==node){
 				dists.remove(i);
 				neighbors.remove(i);
+				pheromone.remove(i);
 				return;
 			}
 		}
