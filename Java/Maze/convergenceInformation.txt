@@ -1,5 +1,75 @@
 ////Convergence Information:////
 
+Iteration: 1266816 Ant: 0 reached the destination (winner no. 99)
+Iteration: 811149 Ant: 1 reached the destination (winner no. 32)
+Iteration: 783944 Ant: 2 reached the destination (winner no. 28)
+Iteration: 564672 Ant: 3 reached the destination (winner no. 7)
+null
+null
+null
+Iteration: 749933 Ant: 7 reached the destination (winner no. 23)
+null
+null
+null
+null
+null
+Iteration: 630571 Ant: 13 reached the destination (winner no. 10)
+Iteration: 613557 Ant: 14 reached the destination (winner no. 9)
+null
+null
+null
+Iteration: 729263 Ant: 18 reached the destination (winner no. 20)
+null
+null
+Iteration: 736285 Ant: 21 reached the destination (winner no. 21)
+null
+null
+null
+null
+null
+null
+null
+Iteration: 392059 Ant: 29 reached the destination (winner no. 3)
+Iteration: 715041 Ant: 30 reached the destination (winner no. 18)
+null
+null
+null
+Iteration: 528868 Ant: 34 reached the destination (winner no. 6)
+null
+null
+null
+null
+Iteration: 743125 Ant: 39 reached the destination (winner no. 22)
+null
+null
+Iteration: 658305 Ant: 42 reached the destination (winner no. 12)
+null
+null
+null
+Iteration: 248047 Ant: 46 reached the destination (winner no. 1)
+null
+null
+null
+null
+Iteration: 670357 Ant: 51 reached the destination (winner no. 13)
+null
+null
+Iteration: 498933 Ant: 54 reached the destination (winner no. 5)
+null
+null
+null
+null
+null
+Iteration: 699517 Ant: 60 reached the destination (winner no. 16)
+null
+null
+null
+null
+null
+null
+null
+null
+Iteration: 589742 Ant: 69 reached the destination (winner no. 8)
 null
 null
 null
@@ -11,30 +81,35 @@ null
 null
 null
 null
-Iteration: 85812 Ant: 11 reached the destination (winner no. 1)
-Iteration: 47588 Ant: 12 reached the destination (winner no. 0)
-Iteration: 89289 Ant: 13 reached the destination (winner no. 2)
-null
-null
-null
-null
-Iteration: 95044 Ant: 18 reached the destination (winner no. 3)
+Iteration: 316429 Ant: 81 reached the destination (winner no. 2)
 null
 null
 null
 null
 null
-Max Iterations reached :(
-Iteration: 100011 SuperAnt is stuck :(
+null
+null
+null
+Iteration: 645462 Ant: 90 reached the destination (winner no. 11)
+null
+Iteration: 707410 Ant: 92 reached the destination (winner no. 17)
+null
+null
+null
+Iteration: 681254 Ant: 96 reached the destination (winner no. 14)
+null
+null
+Iteration: 151000 Ant: 99 reached the destination (winner no. 0)
+Iteration: 1266885 SuperAnt reached the destination
 
 ////Used Parameters:////
 
-concurrentRelease: true
-evaporationConstant: 0.5
+releaseMethod: 3
+evaporationConstant: 0.3
 alpha: 1.0
 beta: 0.5
 Q: 61
-amountOfAnts: 25
+amountOfAnts: 100
 mazeDifficulty: medium
 maxIterations: 100000
-amountOfWinners: 25
+amountOfWinners: 100

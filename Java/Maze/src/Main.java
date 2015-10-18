@@ -16,16 +16,17 @@ import java.util.Scanner;
 public class Main {
 	private static Coordinate startcoord;
 	private static Coordinate endcoord;
-	private static float evaporationConstant = 0.5f;
+	private static float evaporationConstant = 0.3f;
 	private static float alpha = 1;
 	private static float beta = 0.5f;
 	private static int Q; //estimate of the length of the route
-	private static int amountOfAnts = 25; //amount of ants released in the maze
+	private static int amountOfAnts = 100; //amount of ants released in the maze
 	private static String mazeDifficulty;
 
-	private static int amountOfWinners = 25; //amount of ants that need to reach the end (only used in concurrent release mode)
+	private static int amountOfWinners = 100; //amount of ants that need to reach the end (only used in concurrent release mode)
+	private static boolean limitIteration = false;
 	private static int maxIterations = 100000; //max amount of iterations
-	private static boolean concurrentRelease;
+	private static int releaseMethod;
 	private static String[] convergenceInformation = new String[amountOfAnts + 1]; //Store information for all ants + SuperAnts for parameter optimization 
 
 
@@ -69,15 +70,19 @@ public class Main {
 			while(true)
 			{
 				System.out.println("Select mode:");
-				System.out.println("1) Concurrent");
-				System.out.println("2) One by one");
+				System.out.println("1) One by one");
+				System.out.println("2) Concurrent + No resetting of Ants");
+				System.out.println("3) Concurrent + Reset all Ants, if one Ant finds destination");
 				int choice = sc.nextInt();
 				switch (choice){
 				case 1:
-					concurrentRelease = true;
+					releaseMethod = 1;
 					break modeSelectLoop;
 				case 2:
-					concurrentRelease = false;
+					releaseMethod = 2;
+					break modeSelectLoop;
+				case 3:
+					releaseMethod = 3;
 					break modeSelectLoop;
 				default:
 					System.out.println("No valid number entered");
@@ -139,7 +144,7 @@ public class Main {
 			int iteration = 0;
 			int winners = 0;
 
-			if(concurrentRelease==false)
+			if(releaseMethod==1)
 			{
 
 				//Releasing the ants into the maze. Next Ant gets released if the previous Ant reached its destination
@@ -163,7 +168,7 @@ public class Main {
 
 								break;
 							}
-							if(iteration==maxIterations)
+							if(limitIteration==true && iteration==maxIterations)
 							{
 								convergenceInformation[amountOfAnts-1] =  "Max Iterations reached :(";
 								break outerForLoop;
@@ -171,9 +176,9 @@ public class Main {
 						}
 					}
 			}
-			else
+			else if(releaseMethod==2)
 			{
-				//Releasing the ants one by one into the maze
+				//Releasing all ants at once
 				boolean deadAnts[] = new boolean[antarray.length];
 				OuterWhile:
 					while(true)
@@ -197,7 +202,7 @@ public class Main {
 									}
 								}
 							}
-							if(iteration==maxIterations)
+							if(limitIteration==true && iteration==maxIterations)
 							{
 								convergenceInformation[amountOfAnts-1] =  "Max Iterations reached :(";
 								break OuterWhile;
@@ -205,87 +210,128 @@ public class Main {
 						}
 
 					}
-			}
-
-			//Releasing the Super Ant. Super Ant always chooses the 'best' path:
-			System.out.print("Releasing the Super Ant :D");
-			while(true)
+			}else if(releaseMethod==3)
 			{
-				iteration++;
-				((SuperAnt)controlAnt).move();													
-				System.out.print("Iteration: " + iteration + " SuperAnt: " + " Current node: " + controlAnt.getCurrentnode().getCoordinate().toString() + "\r");
-				if(controlAnt.getCurrentnode().equals(maze.getNode(endcoord)))
+				//Releasing all ants at once
+				boolean deadAnts[] = new boolean[antarray.length];
+				SecondOuterWhile:
+					while(true)
+					{
+						for(int i=0;i<antarray.length;i++){
+							iteration++;
+
+							antarray[i].move();													
+							System.out.print("Iteration: " + iteration + " Ant: " + i + " Current node: " + antarray[i].getCurrentnode().getCoordinate().toString() + "\r");
+							if(antarray[i].getCurrentnode().equals(maze.getNode(endcoord)))
+							{
+								System.out.println();
+								System.out.println("Iteration: " + iteration + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
+								convergenceInformation[i] =  "Iteration: " + iteration + " Ant: " + i +  " reached the destination (winner no. "+winners+")";
+
+								antarray[i].splat();
+								winners++;
+
+								if (winners>=amountOfWinners){
+									break SecondOuterWhile;
+								}
+
+								//Reinstantiating the Ants so they start over again
+								for(int h=0;h<antarray.length;h++)
+								{
+									antarray[h] = new Ant(maze, startcoord, endcoord, alpha, beta, evaporationConstant,Q);
+								}
+								//start over again with the new Ants
+								break;
+
+							}
+							if(limitIteration==true && iteration==maxIterations)
+							{
+								convergenceInformation[amountOfAnts-1] =  "Max Iterations reached :(";
+								break SecondOuterWhile;
+							}
+						}
+					}
+
+				//Releasing the Super Ant. Super Ant always chooses the 'best' path:
+				System.out.print("Releasing the Super Ant :D");
+				while(true)
 				{
-					System.out.println();
-					System.out.println("SuperAnt reached the destination");
-					convergenceInformation[amountOfAnts] = "Iteration: " + iteration + " SuperAnt reached the destination";
-					//Update pheromone of path and kill the ant
-					controlAnt.splat();
+					iteration++;
+					((SuperAnt)controlAnt).move();													
+					System.out.print("Iteration: " + iteration + " SuperAnt: " + " Current node: " + controlAnt.getCurrentnode().getCoordinate().toString() + "\r");
+					if(controlAnt.getCurrentnode().equals(maze.getNode(endcoord)))
+					{
+						System.out.println();
+						System.out.println("SuperAnt reached the destination");
+						convergenceInformation[amountOfAnts] = "Iteration: " + iteration + " SuperAnt reached the destination";
+						//Update pheromone of path and kill the ant
+						controlAnt.splat();
 
-					break;
+						break;
+					}
+					if(((SuperAnt)controlAnt).isStuck())
+					{
+						System.out.println("Becouse SuperAnt is stuck, the path of the last normal Ant will be stored");
+						convergenceInformation[amountOfAnts] = "Iteration: " + iteration + " SuperAnt is stuck :(";
+						controlAnt = antarray[antarray.length-1];
+						break;
+					}
 				}
-				if(((SuperAnt)controlAnt).isStuck())
+
+				//UNCOMMENT FOLLOWING TO SHOW ALL THE LEAVING PATHS'S PHEROMONE FOR ALL NODE
+				//for(int i=0;i<(maze.getNodes().size());i++)
+				//{
+				//	System.out.println("Node: " + i + " Pheromone of leaving paths: " + maze.getNodes().get(i).getPheromone().toString());
+				//}
+
+				try {
+					writer = new PrintWriter("mazeNodesVisited.txt", "UTF-8");
+				} catch (FileNotFoundException e) {} 
+				catch (UnsupportedEncodingException e) {}
+				writer.println(maze.pathGraphtoString(controlAnt.getPath()));
+				writer.flush();
+
+
+				try {
+					writer = new PrintWriter("directions.txt", "UTF-8");
+				} catch (FileNotFoundException e) {} 
+				catch (UnsupportedEncodingException e) {}
+				writer.println(controlAnt.getDirections().size() + ";");
+				writer.println(startcoord.getX() + ", " + startcoord.getY() + ";");
+				writer.println(controlAnt.getDirections().toString().replace(", ", ";").replace("[","").replace("]", ";"));
+				writer.flush();
+
+				try {
+					writer = new PrintWriter("convergenceInformation.txt", "UTF-8");
+				} catch (FileNotFoundException e) {} 
+				catch (UnsupportedEncodingException e) {}
+				writer.println("////Convergence Information:////");
+				writer.println();
+				for(int i=0;i<convergenceInformation.length;i++)
 				{
-					System.out.println("Becouse SuperAnt is stuck, the path of the last normal Ant will be stored");
-					convergenceInformation[amountOfAnts] = "Iteration: " + iteration + " SuperAnt is stuck :(";
-					controlAnt = antarray[antarray.length-1];
-					break;
+					writer.println(convergenceInformation[i]);
 				}
+				writer.println();
+				writer.println("////Used Parameters:////");
+				writer.println();
+				writer.println("releaseMethod: " + releaseMethod);
+				writer.println("evaporationConstant: " + evaporationConstant);
+				writer.println("alpha: " + alpha);
+				writer.println("beta: " + beta);
+				writer.println("Q: " + Q);
+				writer.println("amountOfAnts: " + amountOfAnts);
+				writer.println("mazeDifficulty: " + mazeDifficulty);
+				writer.println("maxIterations: " +  maxIterations);
+				writer.println("amountOfWinners: " + amountOfWinners);
+
+
+				writer.flush();
+
+
+				System.out.println("done");
+
 			}
-
-			//UNCOMMENT FOLLOWING TO SHOW ALL THE LEAVING PATHS'S PHEROMONE FOR ALL NODE
-			//for(int i=0;i<(maze.getNodes().size());i++)
-			//{
-			//	System.out.println("Node: " + i + " Pheromone of leaving paths: " + maze.getNodes().get(i).getPheromone().toString());
-			//}
-
-			try {
-				writer = new PrintWriter("mazeNodesVisited.txt", "UTF-8");
-			} catch (FileNotFoundException e) {} 
-			catch (UnsupportedEncodingException e) {}
-			writer.println(maze.pathGraphtoString(controlAnt.getPath()));
-			writer.flush();
-
-
-			try {
-				writer = new PrintWriter("directions.txt", "UTF-8");
-			} catch (FileNotFoundException e) {} 
-			catch (UnsupportedEncodingException e) {}
-			writer.println(controlAnt.getDirections().size() + ";");
-			writer.println(startcoord.getX() + ", " + startcoord.getY() + ";");
-			writer.println(controlAnt.getDirections().toString().replace(", ", ";").replace("[","").replace("]", ";"));
-			writer.flush();
-
-			try {
-				writer = new PrintWriter("convergenceInformation.txt", "UTF-8");
-			} catch (FileNotFoundException e) {} 
-			catch (UnsupportedEncodingException e) {}
-			writer.println("////Convergence Information:////");
-			writer.println();
-			for(int i=0;i<convergenceInformation.length;i++)
-			{
-				writer.println(convergenceInformation[i]);
-			}
-			writer.println();
-			writer.println("////Used Parameters:////");
-			writer.println();
-			writer.println("concurrentRelease: " + concurrentRelease);
-			writer.println("evaporationConstant: " + evaporationConstant);
-			writer.println("alpha: " + alpha);
-			writer.println("beta: " + beta);
-			writer.println("Q: " + Q);
-			writer.println("amountOfAnts: " + amountOfAnts);
-			writer.println("mazeDifficulty: " + mazeDifficulty);
-			writer.println("maxIterations: " +  maxIterations);
-			writer.println("amountOfWinners: " + amountOfWinners);
-	
-			writer.flush();
-
-
-			System.out.println("done");
 
 	}
 
 }
-
-

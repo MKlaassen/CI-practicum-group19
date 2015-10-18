@@ -53,7 +53,7 @@ public class SuperAnt extends Ant{
 				if(stuck)
 				{
 					System.out.println();
-					System.out.println("SuperAnt: Sorry Boss, but I am stuck :(");
+					System.out.println("SuperAnt: Sorry Master, but I am stuck :(");
 					break;
 				}
 			}
