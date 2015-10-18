@@ -1,0 +1,40 @@
+////Convergence Information:////
+
+Iteration: 21180 Ant: 0 reached the destination (winner no. 0)
+Iteration: 58052 Ant: 1 reached the destination (winner no. 1)
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+Max Iterations reached :(
+Iteration: 100011 SuperAnt is stuck :(
+
+////Used Parameters:////
+
+concurrentRelease: false
+evaporationConstant: 0.5
+alpha: 1.0
+beta: 0.5
+Q: 61
+amountOfAnts: 25
+mazeDifficulty: medium
+maxIterations: 100000
+amountOfWinners: 25
