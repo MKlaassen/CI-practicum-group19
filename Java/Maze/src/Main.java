@@ -16,14 +16,14 @@ import java.util.Scanner;
 public class Main {
 	private static Coordinate startcoord;
 	private static Coordinate endcoord;
-	private static float evaporationConstant = 0.3f;
+	private static float evaporationConstant = 0.1f;
 	private static float alpha = 1;
 	private static float beta = 0.5f;
 	private static int Q; //estimate of the length of the route
-	private static int amountOfAnts = 100; //amount of ants released in the maze
+	private static int amountOfAnts = 25; //amount of ants released in the maze
 	private static String mazeDifficulty;
 
-	private static int amountOfWinners = 100; //amount of ants that need to reach the end (only used in concurrent release mode)
+	private static int amountOfWinners = amountOfAnts; //amount of ants that need to reach the end (only used in concurrent release mode)
 	private static boolean limitsteps = false;
 	private static int maxstepss = 100000; //max amount of stepss
 	private static int releaseMethod;
@@ -104,7 +104,9 @@ public class Main {
 
 			//estimation of the route length.
 			Q = Math.abs(startcoord.getX()-endcoord.getX()) + Math.abs(startcoord.getY()-endcoord.getY());
-
+			
+			//TEST PURPOSE
+			//Q = 100*Q;
 
 			System.out.println(maze.toString());
 			for (Node node : maze.getNodes()){

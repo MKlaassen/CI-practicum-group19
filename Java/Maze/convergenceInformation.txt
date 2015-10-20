@@ -1,115 +1,40 @@
 ////Convergence Information:////
 
-steps: 6201 Ant: 0 reached the destination (winner no. 99)
-steps: 6202 Ant: 1 reached the destination (winner no. 38)
-steps: 6203 Ant: 2 reached the destination (winner no. 32)
-steps: 6204 Ant: 3 reached the destination (winner no. 27)
+steps: 214176 Ant: 0 reached the destination (winner no. 24)
+steps: 233502 Ant: 1 reached the destination (winner no. 16)
 null
+steps: 271829 Ant: 3 reached the destination (winner no. 3)
 null
 null
+steps: 185107 Ant: 6 reached the destination (winner no. 6)
+steps: 209208 Ant: 7 reached the destination (winner no. 11)
+steps: 148759 Ant: 8 reached the destination (winner no. 13)
 null
+steps: 163636 Ant: 10 reached the destination (winner no. 8)
+steps: 215837 Ant: 11 reached the destination (winner no. 18)
+steps: 197713 Ant: 12 reached the destination (winner no. 7)
+steps: 195464 Ant: 13 reached the destination (winner no. 19)
 null
+steps: 420866 Ant: 15 reached the destination (winner no. 1)
+steps: 172767 Ant: 16 reached the destination (winner no. 20)
 null
-steps: 23211 Ant: 10 reached the destination (winner no. 10)
+steps: 187144 Ant: 18 reached the destination (winner no. 21)
+steps: 150495 Ant: 19 reached the destination (winner no. 12)
 null
-steps: 36913 Ant: 12 reached the destination (winner no. 6)
-steps: 7414 Ant: 13 reached the destination (winner no. 21)
-null
-null
-null
-null
-null
-steps: 9820 Ant: 19 reached the destination (winner no. 17)
-steps: 6221 Ant: 20 reached the destination (winner no. 24)
-null
-steps: 57423 Ant: 22 reached the destination (winner no. 2)
-steps: 15224 Ant: 23 reached the destination (winner no. 12)
-null
-steps: 6826 Ant: 25 reached the destination (winner no. 23)
-null
-null
-steps: 85229 Ant: 28 reached the destination (winner no. 4)
-null
-null
-null
-null
-null
-steps: 18435 Ant: 34 reached the destination (winner no. 11)
-steps: 6236 Ant: 35 reached the destination (winner no. 25)
-null
-null
-null
-steps: 10840 Ant: 39 reached the destination (winner no. 16)
-null
-null
-null
-null
-null
-null
-null
-null
-steps: 12049 Ant: 48 reached the destination (winner no. 14)
-null
-null
-null
-steps: 30353 Ant: 52 reached the destination (winner no. 8)
-null
-null
-null
-steps: 10457 Ant: 56 reached the destination (winner no. 15)
-null
-null
-null
-null
-null
-steps: 8463 Ant: 62 reached the destination (winner no. 19)
-null
-null
-null
-null
-null
-null
-steps: 15070 Ant: 69 reached the destination (winner no. 13)
-steps: 113771 Ant: 70 reached the destination (winner no. 3)
-null
-null
-null
-null
-null
-null
-steps: 6878 Ant: 77 reached the destination (winner no. 22)
-null
-null
-null
-null
-null
-steps: 8684 Ant: 83 reached the destination (winner no. 18)
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-steps: 63 SuperAnt reached the destination
+steps: 180572 Ant: 21 reached the destination (winner no. 4)
+steps: 159448 Ant: 22 reached the destination (winner no. 22)
+steps: 172874 Ant: 23 reached the destination (winner no. 23)
+steps: 201500 Ant: 24 reached the destination (winner no. 15)
+steps: 2 SuperAnt is stuck :(
 
 ////Used Parameters:////
 
 releaseMethod: 3
-evaporationConstant: 0.3
+evaporationConstant: 0.1
 alpha: 1.0
 beta: 0.5
-Q: 61
-amountOfAnts: 100
-mazeDifficulty: medium
+Q: 11300
+amountOfAnts: 25
+mazeDifficulty: hard
 maxstepss: 100000
-amountOfWinners: 100
+amountOfWinners: 25
