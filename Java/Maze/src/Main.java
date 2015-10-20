@@ -24,8 +24,8 @@ public class Main {
 	private static String mazeDifficulty;
 
 	private static int amountOfWinners = 100; //amount of ants that need to reach the end (only used in concurrent release mode)
-	private static boolean limitIteration = false;
-	private static int maxIterations = 100000; //max amount of iterations
+	private static boolean limitsteps = false;
+	private static int maxstepss = 100000; //max amount of stepss
 	private static int releaseMethod;
 	private static String[] convergenceInformation = new String[amountOfAnts + 1]; //Store information for all ants + SuperAnts for parameter optimization 
 
@@ -141,7 +141,7 @@ public class Main {
 
 
 
-			int iteration = 0;
+			int steps = 0;
 			int winners = 0;
 
 			if(releaseMethod==1)
@@ -153,24 +153,23 @@ public class Main {
 					{
 						while(true)
 						{
-							iteration++;
+							steps++;
 							antarray[i].move();													
-							System.out.print("Iteration: " + iteration + " Ant: " + i + " Current node: " + antarray[i].getCurrentnode().getCoordinate().toString() + "\r");
+							//System.out.print("steps: " + steps + " Ant: " + i + " Current node: " + antarray[i].getCurrentnode().getCoordinate().toString() + "\r");
 							if(antarray[i].getCurrentnode().equals(maze.getNode(endcoord)))
 							{
 								System.out.println();
-								System.out.println("Iteration: " + iteration + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
-								convergenceInformation[i] =  "Iteration: " + iteration + " Ant: " + i +  " reached the destination (winner no. "+winners+")";
+								System.out.println("steps: " + steps + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
+								convergenceInformation[i] =  "steps: " + steps + " Ant: " + i +  " reached the destination (winner no. "+winners+")";
 								winners++;
-
-
 								antarray[i].splat();
-
+								//reset the steps taken
+								steps=0;
 								break;
 							}
-							if(limitIteration==true && iteration==maxIterations)
+							if(limitsteps==true && steps==maxstepss)
 							{
-								convergenceInformation[amountOfAnts-1] =  "Max Iterations reached :(";
+								convergenceInformation[amountOfAnts-1] =  "Max stepss reached :(";
 								break outerForLoop;
 							}
 						}
@@ -184,27 +183,28 @@ public class Main {
 					while(true)
 					{
 						for(int i=0;i<antarray.length;i++){
-							iteration++;
+							steps++;
 							if(deadAnts[i]==false)
 							{
 								antarray[i].move();													
-								System.out.print("Iteration: " + iteration + " Ant: " + i + " Current node: " + antarray[i].getCurrentnode().getCoordinate().toString() + "\r");
+								//System.out.print("steps: " + steps + " Ant: " + i + " Current node: " + antarray[i].getCurrentnode().getCoordinate().toString() + "\r");
 								if(antarray[i].getCurrentnode().equals(maze.getNode(endcoord)))
 								{
 									System.out.println();
-									System.out.println("Iteration: " + iteration + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
-									convergenceInformation[i] =  "Iteration: " + iteration + " Ant: " + i +  " reached the destination (winner no. "+winners+")";
+									System.out.println("steps: " + steps + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
+									convergenceInformation[i] =  "steps: " + steps + " Ant: " + i +  " reached the destination (winner no. "+winners+")";
 									deadAnts[i]=true; //kill the Ant that reached the end destination
 									antarray[i].splat();
 									winners++;
+									steps = 0;
 									if (winners>=amountOfWinners){
 										break OuterWhile;
 									}
 								}
 							}
-							if(limitIteration==true && iteration==maxIterations)
+							if(limitsteps==true && steps==maxstepss)
 							{
-								convergenceInformation[amountOfAnts-1] =  "Max Iterations reached :(";
+								convergenceInformation[amountOfAnts-1] =  "Max stepss reached :(";
 								break OuterWhile;
 							}
 						}
@@ -218,19 +218,19 @@ public class Main {
 					while(true)
 					{
 						for(int i=0;i<antarray.length;i++){
-							iteration++;
+							steps++;
 
 							antarray[i].move();													
-							System.out.print("Iteration: " + iteration + " Ant: " + i + " Current node: " + antarray[i].getCurrentnode().getCoordinate().toString() + "\r");
+							//System.out.print("steps: " + steps + " Ant: " + i + " Current node: " + antarray[i].getCurrentnode().getCoordinate().toString() + "\r");
 							if(antarray[i].getCurrentnode().equals(maze.getNode(endcoord)))
 							{
 								System.out.println();
-								System.out.println("Iteration: " + iteration + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
-								convergenceInformation[i] =  "Iteration: " + iteration + " Ant: " + i +  " reached the destination (winner no. "+winners+")";
+								System.out.println("steps: " + steps + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
+								convergenceInformation[i] =  "steps: " + steps + " Ant: " + i +  " reached the destination (winner no. "+winners+")";
 
 								antarray[i].splat();
 								winners++;
-
+								steps = 0;
 								if (winners>=amountOfWinners){
 									break SecondOuterWhile;
 								}
@@ -244,9 +244,9 @@ public class Main {
 								break;
 
 							}
-							if(limitIteration==true && iteration==maxIterations)
+							if(limitsteps==true && steps==maxstepss)
 							{
-								convergenceInformation[amountOfAnts-1] =  "Max Iterations reached :(";
+								convergenceInformation[amountOfAnts-1] =  "Max stepss reached :(";
 								break SecondOuterWhile;
 							}
 						}
@@ -256,14 +256,14 @@ public class Main {
 				System.out.print("Releasing the Super Ant :D");
 				while(true)
 				{
-					iteration++;
+					steps++;
 					((SuperAnt)controlAnt).move();													
-					System.out.print("Iteration: " + iteration + " SuperAnt: " + " Current node: " + controlAnt.getCurrentnode().getCoordinate().toString() + "\r");
+					//System.out.print("steps: " + steps + " SuperAnt: " + " Current node: " + controlAnt.getCurrentnode().getCoordinate().toString() + "\r");
 					if(controlAnt.getCurrentnode().equals(maze.getNode(endcoord)))
 					{
 						System.out.println();
 						System.out.println("SuperAnt reached the destination");
-						convergenceInformation[amountOfAnts] = "Iteration: " + iteration + " SuperAnt reached the destination";
+						convergenceInformation[amountOfAnts] = "steps: " + steps + " SuperAnt reached the destination";
 						//Update pheromone of path and kill the ant
 						controlAnt.splat();
 
@@ -272,7 +272,7 @@ public class Main {
 					if(((SuperAnt)controlAnt).isStuck())
 					{
 						System.out.println("Becouse SuperAnt is stuck, the path of the last normal Ant will be stored");
-						convergenceInformation[amountOfAnts] = "Iteration: " + iteration + " SuperAnt is stuck :(";
+						convergenceInformation[amountOfAnts] = "steps: " + steps + " SuperAnt is stuck :(";
 						controlAnt = antarray[antarray.length-1];
 						break;
 					}
@@ -321,7 +321,7 @@ public class Main {
 				writer.println("Q: " + Q);
 				writer.println("amountOfAnts: " + amountOfAnts);
 				writer.println("mazeDifficulty: " + mazeDifficulty);
-				writer.println("maxIterations: " +  maxIterations);
+				writer.println("maxstepss: " +  maxstepss);
 				writer.println("amountOfWinners: " + amountOfWinners);
 
 
