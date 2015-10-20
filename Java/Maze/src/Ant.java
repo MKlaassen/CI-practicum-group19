@@ -27,8 +27,8 @@ public class Ant {
 
 
 	public Ant(Maze maze, Coordinate start, Coordinate end, float alpha, float beta, float ec, int Q) {
-		this.path = new ArrayList<>();
-		this.directions = new ArrayList<>();
+		this.path = new ArrayList<Node>();
+		this.directions = new ArrayList<Integer>();
 		this.maze = maze;
 		this.currentpos = start;
 		this.destpos = end;
@@ -73,30 +73,38 @@ public class Ant {
 		{
 			if(i==0){
 				if (randNum>0 && randNum<sumProbabilities[i]){
-					for(int h=0; h<this.currentnode.getDists().get(i);h++)
-					{
-						directions.add(getDirection(this.currentnode, this.currentnode.getNeighbors().get(i)));	//Add correct direction
-					}
-					travelToNode(this.currentnode.getNeighbors().get(i));									//travel to the node
+//					Node target = this.currentnode.getNeighbors().get(i);
+//					if (!this.path.contains(target)){
+//						for(int h=0; h<this.currentnode.getDists().get(i);h++)
+//						{
+//							directions.add(getDirection(this.currentnode, this.currentnode.getNeighbors().get(i)));	//Add correct direction
+//						}
+						travelToNode(this.currentnode.getNeighbors().get(i));									//travel to the node
+//					}
+//					else {
+//						for (int j = this.path.size(); this.path.get(j)!=target; j--){
+//							this.path.remove(j);
+//						}
+//					}
 					break;
 				}
 			}
 			else if(randNum>sumProbabilities[i-1] && randNum<sumProbabilities[i])
 			{
-				for(int h=0; h<this.currentnode.getDists().get(i);h++)
-				{
-					directions.add(getDirection(this.currentnode, this.currentnode.getNeighbors().get(i)));		//Add correct direction
-				}
+//				for(int h=0; h<this.currentnode.getDists().get(i);h++)
+//				{
+//					directions.add(getDirection(this.currentnode, this.currentnode.getNeighbors().get(i)));		//Add correct direction
+//				}
 				travelToNode(this.currentnode.getNeighbors().get(i));										//travel to the node
 				break;
 			}
 		}
 		if (randNum>=sumProbabilities[sumProbabilities.length-1]){
-			int i = sumProbabilities.length-1;
-			for(int h=0; h<this.currentnode.getDists().get(i);h++)
-			{
-				directions.add(getDirection(this.currentnode, this.currentnode.getNeighbors().get(i)));		//Add correct direction
-			}
+//			int i = sumProbabilities.length-1;
+//			for(int h=0; h<this.currentnode.getDists().get(i);h++)
+//			{
+//				directions.add(getDirection(this.currentnode, this.currentnode.getNeighbors().get(i)));		//Add correct direction
+//			}
 			travelToNode(this.currentnode.getNeighbors().get(this.currentnode.getNeighbors().size()-1));
 		}
 
@@ -104,7 +112,19 @@ public class Ant {
 	}
 
 	public ArrayList<Integer> getDirections() {
-		return directions;
+//		return directions;
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		for (int i = 0; i<this.path.size()-1; i++){
+			Node currentNode = this.path.get(i);
+			for (int j = 0; j < currentNode.getNeighbors().size(); j++){
+				if (currentNode.getNeighbors().get(j)==this.path.get(i+1)){
+					for (int _ = 0; _ < currentNode.getDists().get(j); _++){
+						res.add(getDirection(currentNode, this.path.get(i+1)));
+					}
+				}
+			}
+		}
+		return res;
 	}
 
 	public int getDirection(Node current, Node target)
@@ -163,7 +183,7 @@ public class Ant {
 	public void splat()
 	{
 		int neighInd = -1;
-
+		clearPath();
 		for (int i=0;i<this.path.size()-1;i++)
 		{
 			for (int j = 0; j<this.path.get(i).getNeighbors().size(); j++){
@@ -186,6 +206,23 @@ public class Ant {
 		maze.evaporateAllPaths(evaporationConstant);
 	}
 
+
+	private void clearPath() {
+		ArrayList<Node> seen = new ArrayList<Node>();
+		for (int i = 0; i < this.path.size(); i++){
+			if (!seen.contains(this.path.get(i))){
+				seen.add(this.path.get(i));
+			}
+			else {
+				int firstNodeIndex = seen.indexOf(this.path.get(i));
+				for (int j = firstNodeIndex; j < i; j++){
+					this.path.remove(firstNodeIndex+1);
+				}
+				
+				i = firstNodeIndex+1;
+			}
+		}
+	}
 
 	public float[] calculateRouteProbabilities(float alpha, float beta)
 	{

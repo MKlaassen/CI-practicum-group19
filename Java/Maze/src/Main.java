@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class Main {
 	private static Coordinate startcoord;
 	private static Coordinate endcoord;
-	private static float evaporationConstant = 0.1f;
+	private static float evaporationConstant;
 	private static float alpha = 1;
 	private static float beta = 0.5f;
 	private static int Q; //estimate of the length of the route
@@ -103,7 +103,14 @@ public class Main {
 			endcoord = coordinates[1];
 
 			//estimation of the route length.
-			Q = Math.abs(startcoord.getX()-endcoord.getX()) + Math.abs(startcoord.getY()-endcoord.getY());
+			if (mazeDifficulty.equals("easy")||mazeDifficulty.equals("medium")){
+				Q = Math.abs(startcoord.getX()-endcoord.getX()) + Math.abs(startcoord.getY()-endcoord.getY());
+				evaporationConstant = 0.1f;
+			}
+			else{
+				Q = 100*Math.abs(startcoord.getX()-endcoord.getX()) + Math.abs(startcoord.getY()-endcoord.getY());
+				evaporationConstant = 0.3f;
+			}
 			
 			//TEST PURPOSE
 			//Q = 100*Q;
@@ -216,9 +223,17 @@ public class Main {
 			{
 				//Releasing all ants at once
 				boolean deadAnts[] = new boolean[antarray.length];
+				boolean lastWinner = true;
 				SecondOuterWhile:
 					while(true)
 					{
+						if (lastWinner){
+//							lastWinner = false;
+//							for(int i=0;i<(maze.getNodes().size());i++)
+//							{
+//								System.out.println("Node: " + i + " Pheromone of leaving paths: " + maze.getNodes().get(i).getPheromone().toString());
+//							}
+						}
 						for(int i=0;i<antarray.length;i++){
 							iterations++;
 
@@ -240,6 +255,7 @@ public class Main {
 								//Reinstantiating the Ants so they start over again
 								for(int h=0;h<antarray.length;h++)
 								{
+									lastWinner = true;
 									antarray[h] = new Ant(maze, startcoord, endcoord, alpha, beta, evaporationConstant,Q);
 								}
 								//start over again with the new Ants
@@ -281,10 +297,10 @@ public class Main {
 				}
 
 				//UNCOMMENT FOLLOWING TO SHOW ALL THE LEAVING PATHS'S PHEROMONE FOR ALL NODE
-				//for(int i=0;i<(maze.getNodes().size());i++)
-				//{
-				//	System.out.println("Node: " + i + " Pheromone of leaving paths: " + maze.getNodes().get(i).getPheromone().toString());
-				//}
+//				for(int i=0;i<(maze.getNodes().size());i++)
+//				{
+//					System.out.println("Node: " + i + " Pheromone of leaving paths: " + maze.getNodes().get(i).getPheromone().toString());
+//				}
 
 				try {
 					writer = new PrintWriter("mazeNodesVisited.txt", "UTF-8");
