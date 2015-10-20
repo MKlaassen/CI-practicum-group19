@@ -24,7 +24,7 @@ public class Main {
 	private static String mazeDifficulty;
 
 	private static int amountOfWinners = amountOfAnts; //amount of ants that need to reach the end (only used in concurrent release mode)
-	private static boolean limitsteps = false;
+	private static boolean limititerations = false;
 	private static int maxiterations = 100000; //max amount of stepss
 	private static int releaseMethod;
 	private static String[] convergenceInformation = new String[amountOfAnts + 1]; //Store information for all ants + SuperAnts for parameter optimization 
@@ -169,7 +169,7 @@ public class Main {
 								//steps=0;
 								break;
 							}
-							if(limitsteps==true && iterations==maxiterations)
+							if(limititerations==true && iterations==maxiterations)
 							{
 								convergenceInformation[amountOfAnts-1] =  "Max stepss reached :(";
 								break outerForLoop;
@@ -204,7 +204,7 @@ public class Main {
 									}
 								}
 							}
-							if(limitsteps==true && iterations==maxiterations)
+							if(limititerations==true && iterations==maxiterations)
 							{
 								convergenceInformation[amountOfAnts-1] =  "Max stepss reached :(";
 								break OuterWhile;
@@ -246,7 +246,7 @@ public class Main {
 								break;
 
 							}
-							if(limitsteps==true && iterations==maxiterations)
+							if(limititerations==true && iterations==maxiterations)
 							{
 								convergenceInformation[amountOfAnts-1] =  "Max stepss reached :(";
 								break SecondOuterWhile;
