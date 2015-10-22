@@ -1,38 +1,35 @@
 ////Convergence Information:////
 
-steps: 337 Ant: 0 reached the destination (winner no. 99)
-steps: 337 Ant: 1 reached the destination (winner no. 31)
-steps: 11311 Ant: 2 reached the destination (winner no. 1)
-steps: 339 Ant: 3 reached the destination (winner no. 20)
+steps: 899 Ant: 0 reached the destination (winner no. 99)
+steps: 899 Ant: 1 reached the destination (winner no. 27)
+steps: 901 Ant: 2 reached the destination (winner no. 19)
+steps: 919 Ant: 3 reached the destination (winner no. 7)
+steps: 911 Ant: 4 reached the destination (winner no. 11)
 null
-steps: 11077 Ant: 5 reached the destination (winner no. 0)
-steps: 607 Ant: 6 reached the destination (winner no. 11)
-steps: 339 Ant: 7 reached the destination (winner no. 23)
 null
+steps: 905 Ant: 7 reached the destination (winner no. 12)
+steps: 1983 Ant: 8 reached the destination (winner no. 3)
+steps: 901 Ant: 9 reached the destination (winner no. 14)
 null
 null
 null
 null
+steps: 911 Ant: 14 reached the destination (winner no. 9)
 null
 null
 null
 null
-steps: 349 Ant: 17 reached the destination (winner no. 16)
-steps: 345 Ant: 18 reached the destination (winner no. 17)
 null
-steps: 977 Ant: 20 reached the destination (winner no. 10)
 null
-steps: 339 Ant: 22 reached the destination (winner no. 22)
 null
 null
-steps: 403 Ant: 25 reached the destination (winner no. 13)
 null
 null
 null
+steps: 1179 Ant: 26 reached the destination (winner no. 4)
 null
 null
 null
-steps: 3023 Ant: 32 reached the destination (winner no. 8)
 null
 null
 null
@@ -44,51 +41,45 @@ null
 null
 null
 null
-steps: 341 Ant: 44 reached the destination (winner no. 19)
 null
 null
 null
 null
-steps: 379 Ant: 49 reached the destination (winner no. 14)
 null
-steps: 12015 Ant: 51 reached the destination (winner no. 3)
-steps: 5547 Ant: 52 reached the destination (winner no. 6)
 null
+steps: 899 Ant: 47 reached the destination (winner no. 21)
 null
 null
-steps: 5443 Ant: 56 reached the destination (winner no. 7)
 null
 null
 null
+steps: 913 Ant: 53 reached the destination (winner no. 8)
 null
 null
-steps: 10185 Ant: 62 reached the destination (winner no. 5)
 null
 null
+steps: 901 Ant: 58 reached the destination (winner no. 13)
 null
 null
 null
+steps: 927 Ant: 62 reached the destination (winner no. 6)
 null
 null
 null
-steps: 1125 Ant: 71 reached the destination (winner no. 9)
 null
 null
 null
 null
 null
-steps: 337 Ant: 77 reached the destination (winner no. 27)
 null
 null
 null
-steps: 485 Ant: 81 reached the destination (winner no. 12)
 null
-steps: 13773 Ant: 83 reached the destination (winner no. 2)
+steps: 991 Ant: 75 reached the destination (winner no. 5)
 null
 null
 null
 null
-steps: 361 Ant: 88 reached the destination (winner no. 15)
 null
 null
 null
@@ -99,8 +90,17 @@ null
 null
 null
 null
+steps: 79015 Ant: 90 reached the destination (winner no. 0)
 null
-steps: 337 SuperAnt reached the destination
+null
+null
+null
+null
+null
+null
+steps: 4301 Ant: 98 reached the destination (winner no. 2)
+null
+steps: 899 SuperAnt reached the destination
 
 ////Used Parameters:////
 
@@ -108,8 +108,8 @@ releaseMethod: 3
 evaporationConstant: 0.3
 alpha: 1.0
 beta: 0.5
-Q: 188
+Q: 5855
 amountOfAnts: 100
-mazeDifficulty: insane
+mazeDifficulty: hard
 maxiterations: 100000
 amountOfWinners: 100

@@ -1,0 +1,115 @@
+////Convergence Information:////
+
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+
+////Used Parameters:////
+
+releaseMethod: 3
+evaporationConstant: 0.0
+alpha: 1.0
+beta: 0.5
+Q: 5855
+amountOfAnts: 100
+mazeDifficulty: hard
+maxIterations: 100000
+amountOfWinners: 100

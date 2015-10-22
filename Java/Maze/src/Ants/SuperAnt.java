@@ -1,3 +1,4 @@
+package Ants;
 import java.util.Random;
 
 public class SuperAnt extends Ant{

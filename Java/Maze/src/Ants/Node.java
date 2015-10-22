@@ -1,3 +1,4 @@
+package Ants;
 import java.util.ArrayList;
 
 /** Class that represents a Node containing an amount of pheromone and neighbournodes with their distances to this node. 

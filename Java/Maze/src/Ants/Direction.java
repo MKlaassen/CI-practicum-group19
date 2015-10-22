@@ -1,3 +1,4 @@
+package Ants;
 /** Enum representing all possible directions an Entity can move.
  * @author Rick Molenaar
  * @author Matthijs Klaassen

@@ -1,3 +1,4 @@
+package Ants;
 import java.util.ArrayList;
 
 /** Class that can construct a Maze from the given layout and transform it into a graph consiting of Nodes.
