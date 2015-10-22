@@ -40,6 +40,7 @@ public class Coordinate {
 	public String toString() {
 		return "Coordinate [xcor=" + xcor + ", ycor=" + ycor + "]";
 	}
+	
 
 	public void setXcor(int xcor) {
 		this.xcor = xcor;

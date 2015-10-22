@@ -183,24 +183,12 @@ public class AntManager {
 				convergenceInformation.add("steps: " + controlAnt.getDirections().size() + " SuperAnt reached the destination");
 				//Update pheromone of path and kill the ant
 				controlAnt.splat();
-
-
-				//Write directions of superAnt to file
-				PrintWriter writer = null;
-				try {
-					writer = new PrintWriter("directions.txt", "UTF-8");
-				} catch (FileNotFoundException e) {} 
-				catch (UnsupportedEncodingException e) {}
-				writer.println(controlAnt.getDirections().size() + ";");
-				writer.println(startcoord.getX() + ", " + startcoord.getY() + ";");
-				writer.println(controlAnt.getDirections().toString().replace(", ", ";").replace("[","").replace("]", ";"));
-				writer.flush();
-				writer.close();
 				break;
+		
 			}
 			if(((SuperAnt)controlAnt).isStuck())
 			{
-				System.out.println("Because SuperAnt is stuck :(");
+				System.out.println("SuperAnt is stuck :(");
 				convergenceInformation.add("steps: " + controlAnt.getDirections().size() + " SuperAnt is stuck :(");
 				break;
 			}
