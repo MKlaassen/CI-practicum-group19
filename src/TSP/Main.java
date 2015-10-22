@@ -52,26 +52,13 @@ public class Main {
 		//Cleanup the Nodes in the maze
 		maze.cleanUpNodes(coordinates);
 		
-		Network network = new Network(coordinates);
-		
-		for(int i=0;i<coordinates.size();i++)
-		{
-			for(int j=i+1;j<coordinates.size();j++)
-			{
-				//Estimate Q
-				Q = PathCalculator.estimateQ(mazeDifficulty, startcoord, endcoord);
-				//Release all ants
+		for ( int i = 0 ; i < coordinates.size() ; i++ ){
+			for ( int j = i + 1 ; j < coordinates.size() ; j++){
+				int Q =PathCalculator.estimateQ(mazeDifficulty, coordinates.get(i), coordinates.get(j));
 				PathCalculator.releaseAnts(releaseMethod, amountOfAnts, maze, coordinates.get(i), coordinates.get(j), alpha, beta, evaporationConstant, Q, limitIterations, maxIterations, amountOfWinners);
 				
-				//Release superAnt
-				ArrayList<Integer> path = PathCalculator.releaseSuperAnt(releaseMethod, amountOfAnts, maze,  coordinates.get(i), coordinates.get(j), alpha, beta, evaporationConstant, Q, limitIterations, maxIterations);
-
-				//Store path
-				network.getTspnodes().get(i).addPaths(path);
 			}
 		}
-		
-		
 		
 		
 		

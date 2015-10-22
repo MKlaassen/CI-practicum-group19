@@ -40,6 +40,8 @@ public class PathCalculator {
 	{
 		int iterations = 0;
 		int winners = 0;
+		
+		
 
 		//Allocating space for all the ants
 		Ant[] antarray = new Ant[amountOfAnts];

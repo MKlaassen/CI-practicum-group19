@@ -1,0 +1,6 @@
+- ArrayList dists and ArrayList neighbors
+	Misschien eerst paths opstellen in Maze.java??? meegeven aan Node.java
+
+- TravelToNode and move method ><
+
+- Maze create nodes > create paths > add paths to nodes
