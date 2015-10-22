@@ -43,8 +43,6 @@ public class Network {
 				int Q =PathCalculator.estimateQ(mazeDifficulty, coordinates.get(i), coordinates.get(j));
 				PathCalculator.releaseAnts(releaseMethod, amountOfAnts, maze, coordinates.get(i), coordinates.get(j), alpha, beta, evaporationConstant, Q, limitIterations, maxIterations, amountOfWinners,false);
 				tspnodes[i].addPaths(PathCalculator.releaseSuperAnt(releaseMethod, amountOfAnts, maze, coordinates.get(i), coordinates.get(j), alpha, beta, evaporationConstant, Q, limitIterations, maxIterations,false));
-				//Garbage Collect:
-				System.gc();
 			}
 		}
 		
