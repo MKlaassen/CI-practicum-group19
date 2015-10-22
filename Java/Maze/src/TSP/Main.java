@@ -56,8 +56,9 @@ public class Main {
 		Network network = new Network(coordinates);
 
 		//Add paths to Network
-		network.addAllPaths(releaseMethod, amountOfAnts,maze,alpha, beta, evaporationConstant,limitIterations,maxIterations,amountOfWinners,mazeDifficulty);
+		//network.addAllPaths(releaseMethod, amountOfAnts,maze,alpha, beta, evaporationConstant,limitIterations,maxIterations,amountOfWinners,mazeDifficulty);
 
+		Chromosome test = new Chromosome(network);
 	}
 }
 
