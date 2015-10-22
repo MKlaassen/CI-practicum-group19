@@ -9,9 +9,6 @@ public class PathCalculator {
 
 	private static ArrayList<String> convergenceInformation = new ArrayList<String>();
 
-
-
-
 	public static int estimateQ(String mazeDifficulty, Coordinate startcoord, Coordinate endcoord){
 		//estimation of the route length.
 		if (mazeDifficulty.equals("easy")||mazeDifficulty.equals("medium")){
@@ -36,11 +33,11 @@ public class PathCalculator {
 	}
 
 
-	public static void releaseAnts(int releaseMethod, int amountOfAnts, Maze maze, Coordinate startcoord, Coordinate endcoord, float alpha, float beta, float evaporationConstant, int Q, boolean limitIterations, int maxIterations, int amountOfWinners)
+	public static void releaseAnts(int releaseMethod, int amountOfAnts, Maze maze, Coordinate startcoord, Coordinate endcoord, float alpha, float beta, float evaporationConstant, int Q, boolean limitIterations, int maxIterations, int amountOfWinners, boolean updateConvergenceInformation)
 	{
 		int iterations = 0;
 		int winners = 0;
-		
+
 		//Allocating space for all the ants
 		Ant[] antarray = new Ant[amountOfAnts];
 
@@ -66,7 +63,11 @@ public class PathCalculator {
 						{
 							System.out.println();
 							System.out.println("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
-							convergenceInformation.add("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
+
+							if(updateConvergenceInformation)
+							{
+								convergenceInformation.add("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
+							}
 							winners++;
 							antarray[i].splat();
 							//reset the steps taken
@@ -75,7 +76,10 @@ public class PathCalculator {
 						}
 						if(limitIterations==true && iterations==maxIterations)
 						{
-							convergenceInformation.add("Max stepss reached :(");
+							if(updateConvergenceInformation)
+							{
+								convergenceInformation.add("Max stepss reached :(");
+							}
 							break outerForLoop;
 						}
 					}
@@ -98,7 +102,10 @@ public class PathCalculator {
 							{
 								System.out.println();
 								System.out.println("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
-								convergenceInformation.add("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
+								if(updateConvergenceInformation)
+								{
+									convergenceInformation.add("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
+								}
 								deadAnts[i]=true; //kill the Ant that reached the end destination
 								antarray[i].splat();
 								winners++;
@@ -110,7 +117,10 @@ public class PathCalculator {
 						}
 						if(limitIterations==true && iterations==maxIterations)
 						{
-							convergenceInformation.add("Max stepss reached :(");
+							if(updateConvergenceInformation)
+							{
+								convergenceInformation.add("Max stepss reached :(");
+							}
 							break OuterWhile;
 						}
 					}
@@ -139,8 +149,11 @@ public class PathCalculator {
 						{
 							System.out.println();
 							System.out.println("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
-							convergenceInformation.add("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
 
+							if(updateConvergenceInformation)
+							{
+								convergenceInformation.add("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
+							}
 							antarray[i].splat();
 							winners++;
 							//steps = 0;
@@ -160,7 +173,10 @@ public class PathCalculator {
 						}
 						if(limitIterations==true && iterations==maxIterations)
 						{
-							convergenceInformation.add("Max stepss reached :(");
+							if(updateConvergenceInformation)
+							{
+								convergenceInformation.add("Max stepss reached :(");
+							}
 							break SecondOuterWhile;
 						}
 					}
@@ -168,13 +184,16 @@ public class PathCalculator {
 		}
 	}
 
-	public static ArrayList<Integer> releaseSuperAnt(int releaseMethod, int amountOfAnts, Maze maze, Coordinate startcoord, Coordinate endcoord, float alpha, float beta, float evaporationConstant, int Q, boolean limitIterations, int maxIterations)
+	public static ArrayList<Integer> releaseSuperAnt(int releaseMethod, int amountOfAnts, Maze maze, Coordinate startcoord, Coordinate endcoord, float alpha, float beta, float evaporationConstant, int Q, boolean limitIterations, int maxIterations, boolean updateConvergenceInformation)
 	{		
 		//Instantiate a SuperAnt
 		Ant controlAnt = new SuperAnt(maze, startcoord, endcoord, alpha, beta, evaporationConstant,Q);
 		int iterations = 0;
 		System.out.print("Releasing the Super Ant :D");
-
+		if(updateConvergenceInformation)
+		{
+			convergenceInformation.add("Releasing the SuperAnt");
+		}
 		while(true)
 		{
 			iterations++;
@@ -184,11 +203,14 @@ public class PathCalculator {
 			{
 				System.out.println();
 				System.out.println("SuperAnt reached the destination");
-				convergenceInformation.add("steps: " + controlAnt.getDirections().size() + " SuperAnt reached the destination");
+				if(updateConvergenceInformation)
+				{
+					convergenceInformation.add("steps: " + controlAnt.getDirections().size() + " SuperAnt reached the destination");
+				}
 				//Update pheromone of path and kill the ant
 				controlAnt.splat();
 
-			
+
 				//Write directions of superAnt to file
 				PrintWriter writer = null;
 				try {
@@ -205,7 +227,10 @@ public class PathCalculator {
 			if(((SuperAnt)controlAnt).isStuck())
 			{
 				System.out.println("Because SuperAnt is stuck :(");
-				convergenceInformation.add("steps: " + controlAnt.getDirections().size() + " SuperAnt is stuck :(");
+				if(updateConvergenceInformation)
+				{
+					convergenceInformation.add("steps: " + controlAnt.getDirections().size() + " SuperAnt is stuck :(");
+				}
 				break;
 			}
 		}

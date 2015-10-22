@@ -28,8 +28,7 @@ public class Main {
 	private static boolean limitIterations = false;
 	private static int maxIterations = 100000; //max amount of iterations
 	private static int releaseMethod;
-	private static String[] convergenceInformation = new String[amountOfAnts + 1]; //Store information for all ants + SuperAnts for parameter optimization 
-
+	private static boolean updateConvergenceInformation = true; //Do you want to store the convergence information?
 
 	/**
 	 * @param args
@@ -68,10 +67,10 @@ public class Main {
 			Q = PathCalculator.estimateQ(mazeDifficulty, startcoord, endcoord);
 			
 			//Release all ants
-			PathCalculator.releaseAnts(releaseMethod, amountOfAnts, maze, startcoord, endcoord, alpha, beta, evaporationConstant, Q, limitIterations, maxIterations, amountOfWinners);
+			PathCalculator.releaseAnts(releaseMethod, amountOfAnts, maze, startcoord, endcoord, alpha, beta, evaporationConstant, Q, limitIterations, maxIterations, amountOfWinners,updateConvergenceInformation);
 			
 			//Release superAnt
-			PathCalculator.releaseSuperAnt(releaseMethod, amountOfAnts, maze, startcoord, endcoord, alpha, beta, evaporationConstant, Q, limitIterations, maxIterations);
+			PathCalculator.releaseSuperAnt(releaseMethod, amountOfAnts, maze, startcoord, endcoord, alpha, beta, evaporationConstant, Q, limitIterations, maxIterations,updateConvergenceInformation);
 
 			//Write convergenceinformation for the Ants
 			String fileName = "convergenceInformation.txt";
