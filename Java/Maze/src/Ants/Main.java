@@ -43,39 +43,40 @@ public class Main {
 			File inputFileMaze = new File("mazes\\" + mazeDifficulty + " maze.txt");
 			Maze maze = Reader.input(inputFileMaze);
 
+			//Get coordinates
 			File inputFileCoordinates = new File("coordinates\\" + mazeDifficulty + " coordinates.txt");
-			Coordinate[] coordinates = Coordinate.read(inputFileCoordinates);
+			Coordinate[] coords = Coordinate.read(inputFileCoordinates);
 	
-			Coordinate startcoord = coordinates[0];
-			Coordinate endcoord = coordinates[1];
+			ArrayList<Coordinate> coordinates = new ArrayList<Coordinate>();
+			
+			Coordinate startcoord = coords[0];
+			Coordinate endcoord = coords[1];
+			
+			coordinates.add(startcoord);
+			coordinates.add(endcoord);
 			
 			//Instantiate Nodes in the maze
 			maze.instantiateNodes();
 			
 			//Cleanup the Nodes in the maze
-			maze.cleanUpNodes(startcoord, endcoord);
-			
-			//Estimate Q
-			Q = PathCalculator.estimateQ(mazeDifficulty, startcoord, endcoord);
+			maze.cleanUpNodes(coordinates);
 			
 			//Write maze to file
 			PathCalculator.writeMazeGraph(maze);
 			
+			//Estimate Q
+			Q = PathCalculator.estimateQ(mazeDifficulty, startcoord, endcoord);
+			
 			//Release all ants
-			String[] convInfoPart1 = PathCalculator.releaseAnts(releaseMethod, amountOfAnts, maze, startcoord, endcoord, alpha, beta, evaporationConstant, Q, limitIterations, maxIterations, amountOfWinners);
+			PathCalculator.releaseAnts(releaseMethod, amountOfAnts, maze, startcoord, endcoord, alpha, beta, evaporationConstant, Q, limitIterations, maxIterations, amountOfWinners);
 			
 			//Release superAnt
-			String[] convInfoPart2 = PathCalculator.releaseSuperAnt(releaseMethod, amountOfAnts, maze, startcoord, endcoord, alpha, beta, evaporationConstant, Q, limitIterations, maxIterations);
+			PathCalculator.releaseSuperAnt(releaseMethod, amountOfAnts, maze, startcoord, endcoord, alpha, beta, evaporationConstant, Q, limitIterations, maxIterations);
 
 			//Write convergenceinformation for the Ants
-			String fileName = "convergenceInformationAnts.txt";
-			PathCalculator.writeConvergenceInformation(releaseMethod, amountOfAnts, maze, startcoord, endcoord, alpha, beta, evaporationConstant, Q, limitIterations, maxIterations, amountOfWinners, convergenceInformation, mazeDifficulty, fileName);
-			
-			//Write convergenceinformation for the SuperAnt
-			fileName = "convergenceInformationSuperAnt.txt";
-			PathCalculator.writeConvergenceInformation(releaseMethod, amountOfAnts, maze, startcoord, endcoord, alpha, beta, evaporationConstant, Q, limitIterations, maxIterations, amountOfWinners, convergenceInformation, mazeDifficulty, fileName);
-			
-			
+			String fileName = "convergenceInformation.txt";
+			PathCalculator.writeConvergenceInformation(releaseMethod, amountOfAnts, maze, startcoord, endcoord, alpha, beta, evaporationConstant, Q, limitIterations, maxIterations, amountOfWinners, mazeDifficulty, fileName);
+		
 	}
 
 }

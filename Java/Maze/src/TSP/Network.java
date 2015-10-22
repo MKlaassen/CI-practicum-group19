@@ -18,12 +18,16 @@ public class Network {
 
 	}
 
-	public void createTSPNodes(ArrayList<Coordinate> coordinates)
+	private void createTSPNodes(ArrayList<Coordinate> coordinates)
 	{
 		for(int i=0;i<coordinates.size();i++)
 		{
 			tspnodes.add(new TSPNode(coordinates.get(i)));
 		}
+	}
+
+	public ArrayList<TSPNode> getTspnodes() {
+		return tspnodes;
 	}
 
 

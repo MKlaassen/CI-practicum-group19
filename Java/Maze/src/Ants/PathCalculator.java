@@ -3,9 +3,11 @@ package Ants;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 public class PathCalculator {
 
+	private static ArrayList<String> convergenceInformation = new ArrayList<String>();
 
 
 
@@ -34,11 +36,8 @@ public class PathCalculator {
 	}
 
 
-	public static String[] releaseAnts(int releaseMethod, int amountOfAnts, Maze maze, Coordinate startcoord, Coordinate endcoord, float alpha, float beta, float evaporationConstant, int Q, boolean limitIterations, int maxIterations, int amountOfWinners)
+	public static void releaseAnts(int releaseMethod, int amountOfAnts, Maze maze, Coordinate startcoord, Coordinate endcoord, float alpha, float beta, float evaporationConstant, int Q, boolean limitIterations, int maxIterations, int amountOfWinners)
 	{
-		//String array for storing the convergence information
-		String[] convergenceInformation = new String[amountOfAnts + 1];
-
 		int iterations = 0;
 		int winners = 0;
 
@@ -67,7 +66,7 @@ public class PathCalculator {
 						{
 							System.out.println();
 							System.out.println("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
-							convergenceInformation[i] =  "steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")";
+							convergenceInformation.add("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
 							winners++;
 							antarray[i].splat();
 							//reset the steps taken
@@ -76,7 +75,7 @@ public class PathCalculator {
 						}
 						if(limitIterations==true && iterations==maxIterations)
 						{
-							convergenceInformation[amountOfAnts-1] =  "Max stepss reached :(";
+							convergenceInformation.add("Max stepss reached :(");
 							break outerForLoop;
 						}
 					}
@@ -99,7 +98,7 @@ public class PathCalculator {
 							{
 								System.out.println();
 								System.out.println("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
-								convergenceInformation[i] =  "steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")";
+								convergenceInformation.add("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
 								deadAnts[i]=true; //kill the Ant that reached the end destination
 								antarray[i].splat();
 								winners++;
@@ -111,7 +110,7 @@ public class PathCalculator {
 						}
 						if(limitIterations==true && iterations==maxIterations)
 						{
-							convergenceInformation[amountOfAnts-1] =  "Max stepss reached :(";
+							convergenceInformation.add("Max stepss reached :(");
 							break OuterWhile;
 						}
 					}
@@ -140,7 +139,7 @@ public class PathCalculator {
 						{
 							System.out.println();
 							System.out.println("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
-							convergenceInformation[i] =  "steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")";
+							convergenceInformation.add("steps: " + antarray[i].getDirections().size() + " Ant: " + i +  " reached the destination (winner no. "+winners+")");
 
 							antarray[i].splat();
 							winners++;
@@ -161,20 +160,16 @@ public class PathCalculator {
 						}
 						if(limitIterations==true && iterations==maxIterations)
 						{
-							convergenceInformation[amountOfAnts-1] =  "Max stepss reached :(";
+							convergenceInformation.add("Max stepss reached :(");
 							break SecondOuterWhile;
 						}
 					}
 				}
 		}
-		return convergenceInformation;
 	}
 
-	public static String[] releaseSuperAnt(int releaseMethod, int amountOfAnts, Maze maze, Coordinate startcoord, Coordinate endcoord, float alpha, float beta, float evaporationConstant, int Q, boolean limitIterations, int maxIterations)
-	{
-		//String array for storing the convergence information
-		String[] convergenceInformation = new String[amountOfAnts + 1];
-
+	public static ArrayList<Integer> releaseSuperAnt(int releaseMethod, int amountOfAnts, Maze maze, Coordinate startcoord, Coordinate endcoord, float alpha, float beta, float evaporationConstant, int Q, boolean limitIterations, int maxIterations)
+	{		
 		//Instantiate a SuperAnt
 		Ant controlAnt = new SuperAnt(maze, startcoord, endcoord, alpha, beta, evaporationConstant,Q);
 		int iterations = 0;
@@ -189,10 +184,11 @@ public class PathCalculator {
 			{
 				System.out.println();
 				System.out.println("SuperAnt reached the destination");
-				convergenceInformation[amountOfAnts] = "steps: " + controlAnt.getDirections().size() + " SuperAnt reached the destination";
+				convergenceInformation.add("steps: " + controlAnt.getDirections().size() + " SuperAnt reached the destination");
 				//Update pheromone of path and kill the ant
 				controlAnt.splat();
 
+			
 				//Write directions of superAnt to file
 				PrintWriter writer = null;
 				try {
@@ -209,14 +205,14 @@ public class PathCalculator {
 			if(((SuperAnt)controlAnt).isStuck())
 			{
 				System.out.println("Because SuperAnt is stuck :(");
-				convergenceInformation[amountOfAnts] = "steps: " + controlAnt.getDirections().size() + " SuperAnt is stuck :(";
+				convergenceInformation.add("steps: " + controlAnt.getDirections().size() + " SuperAnt is stuck :(");
 				break;
 			}
 		}
-		return convergenceInformation;
+		return controlAnt.getDirections();
 	}
 
-	public static void writeConvergenceInformation(int releaseMethod, int amountOfAnts, Maze maze, Coordinate startcoord, Coordinate endcoord, float alpha, float beta, float evaporationConstant, int Q, boolean limitIterations, int maxIterations, int amountOfWinners, String[] convergenceInformation, String mazeDifficulty, String fileName)
+	public static void writeConvergenceInformation(int releaseMethod, int amountOfAnts, Maze maze, Coordinate startcoord, Coordinate endcoord, float alpha, float beta, float evaporationConstant, int Q, boolean limitIterations, int maxIterations, int amountOfWinners, String mazeDifficulty, String fileName)
 	{
 		PrintWriter writer = null;
 
@@ -226,9 +222,9 @@ public class PathCalculator {
 		catch (UnsupportedEncodingException e) {}
 		writer.println("////Convergence Information:////");
 		writer.println();
-		for(int i=0;i<convergenceInformation.length;i++)
+		for(int i=0;i<convergenceInformation.size();i++)
 		{
-			writer.println(convergenceInformation[i]);
+			writer.println(convergenceInformation.get(i).toString());
 		}
 		writer.println();
 		writer.println("////Used Parameters:////");

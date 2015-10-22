@@ -113,13 +113,13 @@ public class Maze {
 	/**Removes all 'in between' nodes and updates the neighbors which results in a graph representation of the maze consisting of crossings a begin and end node
 	 * 
 	 */
-	public void cleanUpNodes(Coordinate start, Coordinate end){
+	public void cleanUpNodes(ArrayList<Coordinate> coordinates){
 		ArrayList<Integer> toDelete = new ArrayList<Integer>();
 		//Loop through all the Node from ArrayList nodes
 		for (int i = 0; i<nodes.size(); i++){
 			Node node = nodes.get(i);
-			//If node i is not a start-node, not an end-node and it has only 2 neighbors -> it is a 'in between' node an it should be deleted
-			if (!(node.getCoordinate().equals(start) || node.getCoordinate().equals(end)
+			//If node i is not a product-node and it has only 2 neighbors -> it is a 'in between' node an it should be deleted
+			if (!(coordinates.contains(node.getCoordinate())
 					|| node.getNeighbors().size()!=2)){
 					//System.out.println("Should be deleted "+node.getCoordinate());
 	
