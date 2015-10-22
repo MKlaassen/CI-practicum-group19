@@ -1,30 +1,27 @@
 package Ants;
-import java.util.Random;
+
+import Maze.Coordinate;
+import main.VariableManager;
 
 public class SuperAnt extends Ant{
 
-	private Node previousNode;
+
 	private boolean stuck = false;
 
 	public boolean isStuck() {
 		return stuck;
 	}
 
-	public SuperAnt(Maze maze, Coordinate start, Coordinate end, float alpha, float beta, float ec, int Q) {
-		super(maze, start, end, alpha, beta, ec, Q);
+	public SuperAnt(Coordinate start, Coordinate end) {
+		super(start, end);
 	}
 
 	public void move() 
 	{
-		float[] routeProbabilities = calculateRouteProbabilities(alpha,beta);
-		float[] sumProbabilities = new float[routeProbabilities.length];
+		float[] routeProbabilities = calculateRouteProbabilities(VariableManager.getAlpha(),VariableManager.getBeta());
 		int indexMax = 0;
-		//generate random number between 0 and 1
-		Random rand = new Random();
-		//		float  randNum = (rand.nextInt(10) + 1)/10.0f;
-		float randNum = rand.nextFloat();
-		//		System.out.println("Randomnum: " + randNum);
-		float sum;
+
+
 
 
 		indexMax = indexOfHighest(routeProbabilities);

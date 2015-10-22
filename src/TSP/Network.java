@@ -2,10 +2,7 @@ package TSP;
 
 import java.util.ArrayList;
 
-import Ants.Ant;
-import Ants.Coordinate;
-import Ants.Maze;
-import Ants.SuperAnt;
+import Maze.Coordinate;
 
 public class Network {
 

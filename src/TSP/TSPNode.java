@@ -1,7 +1,7 @@
 package TSP;
 
 import java.util.ArrayList;
-import Ants.Coordinate;
+import Maze.Coordinate;
 
 public class TSPNode {
 

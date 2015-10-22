@@ -1,0 +1,14 @@
+////Convergence Information:////
+
+
+////Used Parameters:////
+
+releaseMethod: 3
+evaporationConstant: 0
+alpha: 1.0
+beta: 0.5
+Q: 5855
+amountOfAnts: 100
+mazeDifficulty: null
+maxIterations: 100000
+amountOfWinners: 100
