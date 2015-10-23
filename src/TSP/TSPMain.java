@@ -73,7 +73,7 @@ public class TSPMain {
 				catch (UnsupportedEncodingException e) {}
 				writer.println(path.size() + ";");
 				writer.println(coordinates.get(i).getX() + ", " + coordinates.get(i).getY() + ";");
-				writer.println(coordinates.get(j).getX() + ", " + coordinates.get(j).getY() + ";");
+				//writer.println(coordinates.get(j).getX() + ", " + coordinates.get(j).getY() + ";");
 				writer.println(path.toString().replace(", ", ";").replace("[","").replace("]", ";"));
 				writer.flush();
 				writer.close();
