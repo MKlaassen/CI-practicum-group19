@@ -109,11 +109,9 @@ public class AntManager {
 	}
 
 
-	public static void releaseMethodIII(Coordinate startcoord, Coordinate endcoord) {
+	public static ArrayList<Integer> releaseMethodIII(Coordinate startcoord, Coordinate endcoord) {
 		int iterations = 0;
 		int winners = 0;
-
-
 
 		//Allocating space for all the ants
 		Ant[] antarray = new Ant[VariableManager.getAmountOfAnts()];
@@ -163,6 +161,8 @@ public class AntManager {
 					}
 				}
 			}
+		
+		return antarray[winners-1].getDirections();
 	}
 
 	public static ArrayList<Integer> releaseSuperAnt(Coordinate startcoord, Coordinate endcoord)
@@ -190,7 +190,7 @@ public class AntManager {
 			{
 				System.out.println("SuperAnt is stuck :(");
 				convergenceInformation.add("steps: " + controlAnt.getDirections().size() + " SuperAnt is stuck :(");
-				break;
+				return null;
 			}
 		}
 		return controlAnt.getDirections();

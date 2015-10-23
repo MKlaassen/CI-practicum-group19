@@ -13,6 +13,7 @@ public class Chromosome {
 	private int max;
 	private int min;
 	private float fitness;
+	private int pathLength;
 
 	//	public static void main(String[] args){
 	//		for (int i = 0; i<18; i++){
@@ -78,7 +79,8 @@ public class Chromosome {
 			genome.add(randomNumList[i]);
 		}
 
-		fitness = 1.0f/pathLength();
+		pathLength = pathLength();
+		fitness = 1.0f/pathLength;
 	}
 
 	public float getFitness() {
@@ -88,6 +90,9 @@ public class Chromosome {
 
 	public int pathLength(){
 		int sum = 0;
+
+		//Add spawnpoint to first product path
+		sum = sum + Network.getStartToNodeLengths().get(genome.get(0));
 
 		for(int i=0;i<this.genome.size()-1;i++)
 		{
@@ -100,9 +105,15 @@ public class Chromosome {
 			}
 
 			//System.out.println(startNodeIndex + "," + endNodeIndex);
+			//Add pahts
 			sum = sum + Network.getTspnodes().get(startNodeIndex).getPathLengths().get(endNodeIndex);
 		}
+		//System.out.println("Sum " + sum);
 		return sum;
+	}
+
+	public int getPathLength() {
+		return pathLength;
 	}
 
 	public static boolean[] toBits(int n){
@@ -167,6 +178,10 @@ public class Chromosome {
 		int temp = genome.get(randomNum1);
 		genome.set(randomNum1, genome.get(randomNum2));
 		genome.set(randomNum2, temp);
+		
+		//recalulate fitness and pathlength
+		pathLength = pathLength();
+		fitness = 1.0f/pathLength;
 	}
 
 	//CrossOver between 2 chromosomes
@@ -178,8 +193,6 @@ public class Chromosome {
 
 		for(int i=0;i<this.getGenome().size();i++)
 		{
-			Random rand = new Random();
-			int randomNum1;
 			double randomNum2 = Math.random();
 			int temp;
 
