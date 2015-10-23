@@ -20,7 +20,7 @@ public class TSPMain {
 
 	private static String mazeDifficulty;
 	private static boolean recalculatePaths = false;
-	private static int amountOfGenerations = 4;
+	private static int amountOfGenerations = 10000;
 
 	private static ArrayList<Coordinate> coordinates;
 
@@ -47,7 +47,7 @@ public class TSPMain {
 
 		//Construct a TSP Network
 		Network network = new Network(coordinates);
-		
+
 		//Inputfile for maze
 		File inputFileMaze = new File("./Maze/mazes/" + mazeDifficulty + " maze.txt");
 
@@ -83,36 +83,41 @@ public class TSPMain {
 				}
 			}
 		}
-		
+
 		//Add paths to network
 		network.readPaths();
-		
-		
+
+
 		//Construct a GenerationManager
 		GenerationManager genman = new GenerationManager();
-		
-		for(int i=0;i<genman.getActiveGeneration().getChromosomes().size();i++)
-		{
-			System.out.println(genman.getActiveGeneration().getChromosomes().get(i).getGenome().toString());
-		}
-		
+
+		//for(int i=0;i<genman.getActiveGeneration().getChromosomes().size();i++)
+		//{
+		//	System.out.println(genman.getActiveGeneration().getChromosomes().get(i).getGenome().toString());
+		//}
+
 		//Generate a few generations
 		for(int i=0;i<amountOfGenerations;i++)
 		{
 			genman.generateNewGeneration();
 			System.out.println("Shortest Path: " + (1.0f)/(genman.getActiveGeneration().getBestChromosome().getFitness()));
+			System.out.println("Chromosome list:");
+			for(int h=0;h<genman.getActiveGeneration().getChromosomes().size();h++)
+			{
+				System.out.println(genman.getActiveGeneration().getChromosomes().get(h).getGenome().toString());
+			}
 		}
-		
+
 		//Show the path
 		int[] outputPath = new int[genman.getActiveGeneration().getBestChromosome().getGenome().size()];
-		
+
 		for(int i=0; i<genman.getActiveGeneration().getBestChromosome().getGenome().size();i++)
 		{
 			outputPath[i]=genman.getActiveGeneration().getBestChromosome().getGenome().get(i);
 		}
-		
-		System.out.println(Arrays.toString(outputPath));
-		
+
+		System.out.println("Path: " + Arrays.toString(outputPath));
+
 		System.out.println("done");
 	}
 

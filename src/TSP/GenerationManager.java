@@ -4,8 +4,8 @@ public class GenerationManager {
 
 	private GenePool activeGeneration;
 	private static int generationSum;
-	private double mutationChance = 0.1;
-	private int amountOfChromosomes = 10; //Amount of Chromosomes per Generation
+	private double mutationChance = 0.1f;
+	private int amountOfChromosomes = 100; //Amount of Chromosomes per Generation
 	
 	public GenerationManager()
 	{
@@ -17,20 +17,21 @@ public class GenerationManager {
 	public void generateNewGeneration(){
 		GenePool nextGeneration = new GenePool();
 		
-		System.out.println("Mutating Chromosomes");
+		//System.out.println("Mutating Chromosomes");
 		activeGeneration.mutateChromosomes(mutationChance); //mutate Chromosomes with P=mutationChance
 		
 		
 		Chromosome temp;
-		System.out.println("Cross-overing Chromosomes");
+		//System.out.println("Cross-overing Chromosomes");
 		for(int i=0;i<amountOfChromosomes;i++)
 		{
-			System.out.println("Adding cross-overed chromosome " + i + " to the new Generation");
+			//System.out.println("Adding cross-overed chromosome " + i + " to the new Generation");
 			temp = activeGeneration.crossOverChromosomes();
+			
 			nextGeneration.addChromosome(temp);
 		}	
 		
-		System.out.println("Adding new generation");
+		//System.out.println("Adding new generation");
 		activeGeneration = nextGeneration;
 
 		generationSum++;

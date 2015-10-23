@@ -175,8 +175,6 @@ public class Chromosome {
 		ArrayList<Integer> newGenome = new ArrayList<>();
 		Chromosome parent1 = this;
 		Chromosome parent2 = chromosomeOther;
-		
-		boolean whichparent;
 
 		for(int i=0;i<this.getGenome().size();i++)
 		{
@@ -185,77 +183,77 @@ public class Chromosome {
 			double randomNum2 = Math.random();
 			int temp;
 
-			if(randomNum2>0.5){
+			//System.out.println("RandomNum: " + randomNum2);
+
+			if(randomNum2>0.5f)
 				temp = parent1.getGenome().get(i);
-				whichparent = true;
-			}else {
+			else
 				temp = parent2.getGenome().get(i);
-				whichparent = false;
-			}
+
 
 			if(!newGenome.contains(temp))
 			{
-
 				newGenome.add(temp);
 			}
 			else
 			{
-				if( whichparent && !newGenome.contains(parent2.getGenome().get(i))) {
-					newGenome.add(parent2.getGenome().get(i));
-				}
-				else if( !whichparent && !newGenome.contains(parent1.getGenome().get(i))){
-					newGenome.add(parent1.getGenome().get(i));
-				}
-				else{
+				if(randomNum2>0.5f)
+					temp = parent2.getGenome().get(i);
+				else
+					temp = parent1.getGenome().get(i);
+				if(!newGenome.contains(temp))
+				{
+					newGenome.add(temp);
+				}else
+				{
 					newGenome.add(18);
 				}
 			}
-
 		}
 
 		Chromosome returnChromosome = new Chromosome();
 		returnChromosome.setGenome(newGenome);
 
-		for(int i=0;i<newGenome.size();i++)
-		{
-			System.out.print(newGenome.get(i) + ",");
-		
-		}
-		System.out.println(" ");
+		//for(int i=0;i<newGenome.size();i++)
+		//{
+		//	System.out.print(newGenome.get(i) + ",");
+		//
+		//}
+		//System.out.println(" ");
 		return replace(returnChromosome);
 
 	}
-	
+
 	public Chromosome replace(Chromosome chromosome)
 	{
 
 		ArrayList<Integer> intlist = new ArrayList<>();
 		Chromosome retc = chromosome;
-		
+
 		for(int i=0;i<retc.getGenome().size();i++)
 		{
 			if(!retc.getGenome().contains((i))){
 				intlist.add(i);
-				
+
 			}
 		}
-		
-		if (intlist.isEmpty()) return chromosome;
-		
 
-		System.out.println(intlist.toString());
+		if (intlist.isEmpty()) return chromosome;
+
+
+		//System.out.println(intlist.toString());
 		for(int i = 0 ; i < retc.getGenome().size(); i++) {
 			if((retc.getGenome().get(i)) == 18) {
-				
+
 				retc.getGenome().remove(i);
 				retc.getGenome().add(i, (intlist.remove(intlist.size()-1)));
 			}
 		}
 
-		for(int i=0;i<retc.getGenome().size();i++)
-		{
-			System.out.print(retc.getGenome().get(i) + ",");
-		}
+		//for(int i=0;i<retc.getGenome().size();i++)
+		//{
+		//	System.out.print(retc.getGenome().get(i) + ",");
+		//}
 		return retc;
 	}
 

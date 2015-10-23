@@ -104,7 +104,12 @@ public class GenePool {
 			temp2 = selectChromosome();
 
 		}
-		return temp1.crossOver(temp2);
+		
+		//System.out.println("Crossing:     " + temp1.getGenome().toString());
+		//System.out.println("With:         " + temp2.getGenome().toString());
+		Chromosome returnChrom = temp1.crossOver(temp2);
+		//System.out.println("Resulting in: " + returnChrom.getGenome().toString());
+		return returnChrom;
 	}
 
 }
