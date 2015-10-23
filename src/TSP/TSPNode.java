@@ -5,25 +5,27 @@ import Maze.Coordinate;
 
 public class TSPNode {
 
-	private ArrayList<ArrayList<Integer>> paths;
+	private ArrayList<Integer> pathlengths;
 	private Coordinate coord;
 	
 	public TSPNode(Coordinate coord){
-		paths = new ArrayList<>();
+		pathlengths = new ArrayList<>();
 		this.coord = coord;
 	}
 
-	public void addPaths(ArrayList<Integer> path) {
-		paths.add(path);
+	public void addPathLength(int pathLength) {
+		pathlengths.add(pathLength);
 	}
 
-	public ArrayList<ArrayList<Integer>> getPaths() {
-		return paths;
+	public ArrayList<Integer> getPathLengths() {
+		return pathlengths;
 	}
+	
 
 	public Coordinate getCoord() {
 		return coord;
 	}
+
 
 	
 }
