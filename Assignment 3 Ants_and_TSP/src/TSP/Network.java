@@ -48,8 +48,9 @@ public class Network {
 					sc = new Scanner(new File("./Maze/directions/" + "directions_" + i + "_" + j + ".txt"));
 				} catch (FileNotFoundException e) {System.out.println("File for directions not found!");} 
 				String s = sc.next();
-				int pathlength = Integer.valueOf(s.replace(";", ""));
+				int pathlength = Integer.valueOf(s.replace(";", "")).intValue();
 				tspnodes.get(i).addPathLength(pathlength);
+				System.out.println("Adding path length " + pathlength + "to: " + i + "_" + j);
 				//System.out.println("Added: " + pathlength + " to Node " + i );
 				//System.out.println("Pathlength size of node: " + i + " is " + tspnodes.get(i).getPathLengths().size());
 				tspnodes.get(j).addPathLength(pathlength);

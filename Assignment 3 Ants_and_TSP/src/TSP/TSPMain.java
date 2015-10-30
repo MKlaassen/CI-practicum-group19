@@ -20,9 +20,9 @@ public class TSPMain {
 
 
 	private static String mazeDifficulty;
-	private static boolean recalculatePaths = false;
+	private static boolean recalculatePaths = true;
 	private static int amountOfGenerations = 100;
-	private static boolean recalculateStartPaths = false;
+	private static boolean recalculateStartPaths = true;
 
 	private static ArrayList<Coordinate> coordinates;
 
@@ -33,7 +33,7 @@ public class TSPMain {
 		VariableManager.setAmountOfAnts(30);
 		VariableManager.setMaxIterations(100000);
 		VariableManager.setLimitIterations(false);
-		VariableManager.setAmountOfWinners(30);
+		VariableManager.setAmountOfWinners(20);
 
 
 		//Read all product locations for TSP
@@ -52,6 +52,8 @@ public class TSPMain {
 		File inputFileCoordinates = new File("./Maze/coordinates/" + mazeDifficulty + " coordinates.txt");
 		Coordinate[] startingcoords = Coordinate.read(inputFileCoordinates);
 		Coordinate startcoord = startingcoords[0];
+		
+		startcoord = new Coordinate(0,91);
 
 		//Construct a TSP Network
 		Network network = new Network(coordinates,startcoord);

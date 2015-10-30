@@ -13,7 +13,7 @@ public class Chromosome {
 	private int max;
 	private int min;
 	private float fitness;
-	private int pathLength;
+	//private int pathLength;
 
 	//	public static void main(String[] args){
 	//		for (int i = 0; i<18; i++){
@@ -79,20 +79,33 @@ public class Chromosome {
 			genome.add(randomNumList[i]);
 		}
 
-		pathLength = pathLength();
-		fitness = 1.0f/pathLength;
+		fitness = 1.0f/getPathLength();
 	}
 
 	public float getFitness() {
 		return fitness;
 	}
 
+	private void updateFitness(){
+		fitness = 1.0f/getPathLength();
+	}
 
-	public int pathLength(){
+	public int getPathLength(){
+//		int sum = 0;
+//		
+//		for( int i = 0 ; i < genome.size() - 2 ; i++ ) {
+//			
+//			sum = sum + Network.getTspnodes().get(i).getPathLengths().get(i+1);
+//		}
+//		
+//		return sum;
+//		
+//	}
 		int sum = 0;
 
 		//Add spawnpoint to first product path
 		sum = sum + Network.getStartToNodeLengths().get(genome.get(0));
+		//System.out.println("Sum: " + sum);
 
 		for(int i=0;i<this.genome.size()-1;i++)
 		{
@@ -107,13 +120,10 @@ public class Chromosome {
 			//System.out.println(startNodeIndex + "," + endNodeIndex);
 			//Add pahts
 			sum = sum + Network.getTspnodes().get(startNodeIndex).getPathLengths().get(endNodeIndex);
+			//System.out.println("Sum2: " + sum);
 		}
 		//System.out.println("Sum " + sum);
 		return sum;
-	}
-
-	public int getPathLength() {
-		return pathLength;
 	}
 
 	public static boolean[] toBits(int n){
@@ -180,8 +190,7 @@ public class Chromosome {
 		genome.set(randomNum2, temp);
 		
 		//recalulate fitness and pathlength
-		pathLength = pathLength();
-		fitness = 1.0f/pathLength;
+		fitness = 1.0f/getPathLength();
 	}
 
 	//CrossOver between 2 chromosomes
@@ -226,14 +235,15 @@ public class Chromosome {
 
 		Chromosome returnChromosome = new Chromosome();
 		returnChromosome.setGenome(newGenome);
-
+		returnChromosome = replace(returnChromosome);
+		returnChromosome.updateFitness();
 		//for(int i=0;i<newGenome.size();i++)
 		//{
 		//	System.out.print(newGenome.get(i) + ",");
 		//
 		//}
 		//System.out.println(" ");
-		return replace(returnChromosome);
+		return returnChromosome;
 
 	}
 

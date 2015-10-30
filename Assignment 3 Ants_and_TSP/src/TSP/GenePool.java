@@ -88,9 +88,10 @@ public class GenePool {
 		for( int i = 0 ; i < sumFitness.length ; i++)
 			if(randomNum<sumFitness[i])
 			{
-				return chromosomes.get(i);
+				//System.out.println("Selected chromosome fitness: " + chromosomes.get(i).getFitness() + " chromosome index: " + i);
+				return chromosomes.get(i); 
 			}
-
+		//System.out.println("WARNING!");
 		return null;
 	}
 
@@ -106,9 +107,12 @@ public class GenePool {
 		}
 		
 		//System.out.println("Crossing:     " + temp1.getGenome().toString());
+		//System.out.println("Fitness: " + temp1.getFitness());
 		//System.out.println("With:         " + temp2.getGenome().toString());
+		//System.out.println("Fitness: " + temp1.getFitness());
 		Chromosome returnChrom = temp1.crossOver(temp2);
 		//System.out.println("Resulting in: " + returnChrom.getGenome().toString());
+		//System.out.println("Fitness: " + temp1.getFitness());
 		return returnChrom;
 	}
 

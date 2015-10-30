@@ -30,6 +30,9 @@ public class OutputTSPDirections {
 			sum = sum + (readPathLength(Integer.toString(outputPath[i]), Integer.toString(outputPath[i+1])));
 		}
 		
+		//Add actions for taking products
+		sum = sum + outputPath.length;
+		
 		//correct pathlength
 		pathLength = sum;
 		
@@ -64,7 +67,7 @@ public class OutputTSPDirections {
 			sc = new Scanner(new File("./Maze/directions/" + "directions_" + from + "_" + to + ".txt"));
 		} catch (FileNotFoundException e) {System.out.println("File for directions not found!");} 
 		String s = sc.next();
-		length = Integer.valueOf(s.replace(";", ""));
+		length = Integer.valueOf(s.replace(";", "")).intValue();
 	
 		sc.close();
 		return length;
